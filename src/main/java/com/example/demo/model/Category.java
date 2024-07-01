@@ -24,6 +24,8 @@ public class Category {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
+	private String categoryId;
+	
 	private String categoryName;
 	
 	@OneToMany(mappedBy="category", fetch=FetchType.LAZY)
