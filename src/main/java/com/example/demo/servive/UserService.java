@@ -15,7 +15,7 @@ public class UserService {
 	
 	public User findUserByPublicId(String publicId) {
 		
-		User user = userRepository.findByPublicId(publicId);
+		User user = userRepository.findByUserId(publicId);
 		
 		if (user == null) {
 			throw new UserNotFoundException(publicId);

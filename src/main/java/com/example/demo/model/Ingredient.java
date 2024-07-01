@@ -1,18 +1,13 @@
 package com.example.demo.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,23 +15,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="ingredients")
+public class Ingredient {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	private String userId;
+	private String ingredientId;
 	
-	private String fullName;
+	private String name;
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="users_roles", 
-		joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
-		inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id")
-	)
-	private List<Role> roles = new ArrayList<>();
+	// One ingredient can be in many categories
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Category category;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -46,7 +38,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Ingredient other = (Ingredient) obj;
 		return id == other.id;
 	}
 

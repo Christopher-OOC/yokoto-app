@@ -27,9 +27,9 @@ public class UserRepositoryTests {
 		
 		
 		User user = new User();
-		user.setPublicId(PublicIdGeneratorUtils.generatePublicId(30));
+		user.setUserId(PublicIdGeneratorUtils.generatePublicId(30));
 		user.setFullName("Olojede Christopher");
-		user.setRoles(null);
+		//user.setRoles(null);
 		
 		
 	}
