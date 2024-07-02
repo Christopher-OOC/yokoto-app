@@ -1,9 +1,7 @@
-package com.example.demo.model;
+package com.example.demo.model.entity;
 
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,17 +13,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="locales")
-public class Locale {
+@Table(name="authorities")
+public class Authority {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(nullable=false)
-	private String localeId;
-	
-	private String localeName;
+	private String authorityName;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -35,7 +30,7 @@ public class Locale {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Locale other = (Locale) obj;
+		Authority other = (Authority) obj;
 		return id == other.id;
 	}
 

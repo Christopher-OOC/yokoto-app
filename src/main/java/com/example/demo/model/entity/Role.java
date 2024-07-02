@@ -1,11 +1,10 @@
-package com.example.demo.model;
+package com.example.demo.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,27 +20,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="dishes")
-public class Dish {
+@Table(name="roles")
+public class Role {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private int id;
 	
-	@Column(nullable=false)
-	private String dishId;
-	
-	private String dishName;
+	private String roleName;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="dishes_ingredients",
-		joinColumns=@JoinColumn(name="dish_id", referencedColumnName="id"),
-		inverseJoinColumns=@JoinColumn(name="ingredient_id", referencedColumnName="id")
-	)
-	private List<Ingredient> ingredients = new ArrayList<>();
-	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private Locale locale;
+	@JoinTable(name="roles_authorities",
+			joinColumns=@JoinColumn(name="roles_id", referencedColumnName="id"),
+			inverseJoinColumns=@JoinColumn(name="authorities_id", referencedColumnName="id")
+			
+		)
+	private List<Authority> authorities = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -52,7 +45,7 @@ public class Dish {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Dish other = (Dish) obj;
+		Role other = (Role) obj;
 		return id == other.id;
 	}
 

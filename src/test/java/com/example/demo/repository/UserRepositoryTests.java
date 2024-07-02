@@ -11,9 +11,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import com.example.demo.model.Authority;
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
+import com.example.demo.model.entity.Authority;
+import com.example.demo.model.entity.Role;
+import com.example.demo.model.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.utils.PublicIdGeneratorUtils;
 
@@ -43,7 +43,7 @@ public class UserRepositoryTests {
 		
 		User user = new User();
 		user.setUserId(PublicIdGeneratorUtils.generatePublicId(30));
-		user.setFullName("Olojede Christopher");
+		user.setEmail("test@test.com");
 		user.setRoles(Arrays.asList(role1));
 		
 		User savedUser = userRepository.save(user);

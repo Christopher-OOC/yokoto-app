@@ -1,18 +1,16 @@
-package com.example.demo.model;
+package com.example.demo.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,22 +18,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="roles")
-public class Role {
+@Table(name="categories")
+public class Category {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
-	private String roleName;
+	@Column(nullable=false)
+	private String categoryId;
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="roles_authorities",
-			joinColumns=@JoinColumn(name="roles_id", referencedColumnName="id"),
-			inverseJoinColumns=@JoinColumn(name="authorities_id", referencedColumnName="id")
-			
-		)
-	private List<Authority> authorities = new ArrayList<>();
+	private String categoryName;
+	
+	@OneToMany(mappedBy="category", fetch=FetchType.LAZY)
+	private List<Ingredient> ingredients = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -45,7 +41,7 @@ public class Role {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Role other = (Role) obj;
+		Category other = (Category) obj;
 		return id == other.id;
 	}
 

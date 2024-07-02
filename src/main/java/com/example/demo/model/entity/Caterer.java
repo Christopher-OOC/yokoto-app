@@ -1,6 +1,7 @@
-package com.example.demo.model;
+package com.example.demo.model.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,9 +12,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,24 +21,31 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="ceremonies")
-public class Ceremony {
-	
+@Table(name="caterers")
+public class Caterer {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(nullable=false)
-	private String ceremonyId;
+	private String catererId;
 	
-	private String ceremonyName;
+	private String businessName;
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="ceremonies_dishes",
-		joinColumns=@JoinColumn(name="ceremony_id", referencedColumnName="id"),
-		inverseJoinColumns=@JoinColumn(name="dish_id", referencedColumnName="id")
-	)
-	private List<Dish> dishes = new ArrayList<>();
+	private Date dateRegistered;
+	
+	@Column(name="logo_url")
+	private String logoURL;
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<MediaPost> images = new ArrayList<>();
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<MediaPost> videos = new ArrayList<>();
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private User user;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +55,7 @@ public class Ceremony {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ceremony other = (Ceremony) obj;
+		Caterer other = (Caterer) obj;
 		return id == other.id;
 	}
 
@@ -56,4 +63,5 @@ public class Ceremony {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+	
 }
