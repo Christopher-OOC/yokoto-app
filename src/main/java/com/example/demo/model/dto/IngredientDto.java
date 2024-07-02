@@ -2,8 +2,6 @@ package com.example.demo.model.dto;
 
 import java.util.Objects;
 
-import com.example.demo.model.entity.Category;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +15,7 @@ public class IngredientDto {
 	
 	private String ingredientName;
 	
-	private Category category;
+	private CategoryDto category;
 
 	@Override
 	public int hashCode() {

@@ -1,10 +1,9 @@
 package com.example.demo.model.dto;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
-
-import com.example.demo.model.entity.Role;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,7 @@ public class UserDto {
 	
 	private String fullName;
 
-	private List<Role> roles = new ArrayList<>();
+	private List<RoleDto> roles = new ArrayList<>();
 
 	@Override
 	public int hashCode() {

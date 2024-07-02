@@ -5,9 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import com.example.demo.model.entity.CaterSkill;
 import com.example.demo.model.entity.EducationQualification;
-import com.example.demo.model.entity.User;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,9 +28,9 @@ public class CaterAssistantDto {
 	
 	private EducationQualification qualification;
 	
-	private User user;
+	private UserDto user;
 	
-	private List<CaterSkill> caterSkill = new ArrayList<>();
+	private List<CaterSkillDto> caterSkill = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {

@@ -14,7 +14,6 @@ import org.springframework.test.annotation.Rollback;
 import com.example.demo.model.entity.Authority;
 import com.example.demo.model.entity.Role;
 import com.example.demo.model.entity.User;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.utils.PublicIdGeneratorUtils;
 
 @DataJpaTest

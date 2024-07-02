@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import com.example.demo.model.entity.MediaPost;
-import com.example.demo.model.entity.User;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,11 +22,11 @@ public class CatererDto {
 	
 	private String logoURL;
 	
-	private List<MediaPost> images = new ArrayList<>();
+	private List<MediaPostDto> images = new ArrayList<>();
 	
-	private List<MediaPost> videos = new ArrayList<>();
+	private List<MediaPostDto> videos = new ArrayList<>();
 	
-	private User user;
+	private UserDto user;
 
 	@Override
 	public int hashCode() {

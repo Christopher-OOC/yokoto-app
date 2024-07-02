@@ -1,6 +1,7 @@
 package com.example.demo.model.dto;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -9,17 +10,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class DishDto {
-	
-	private long id;
-	
-	private String dishId;
-	
-	private String dishName;
-	
-	private List<IngredientDto> ingredients = new ArrayList<>();
-	
-	private LocaleDto localeDto;
+public class RoleDto {
+
+	private int id;
+
+	private String roleName;
+
+	private List<AuthorityDto> authorities = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -29,7 +26,7 @@ public class DishDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DishDto other = (DishDto) obj;
+		RoleDto other = (RoleDto) obj;
 		return id == other.id;
 	}
 

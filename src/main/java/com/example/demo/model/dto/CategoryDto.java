@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.example.demo.model.entity.Ingredient;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +17,7 @@ public class CategoryDto {
 	
 	private String categoryName;
 	
-	private List<Ingredient> ingredients = new ArrayList<>();
+	private List<IngredientDto> ingredients = new ArrayList<>();
 
 	@Override
 	public int hashCode() {

@@ -9,17 +9,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class DishDto {
-	
+public class CeremonyDto {
+
 	private long id;
-	
-	private String dishId;
-	
-	private String dishName;
-	
-	private List<IngredientDto> ingredients = new ArrayList<>();
-	
-	private LocaleDto localeDto;
+
+	private String ceremonyId;
+
+	private String ceremonyName;
+
+	private List<DishDto> dishes = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -29,7 +27,7 @@ public class DishDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DishDto other = (DishDto) obj;
+		CeremonyDto other = (CeremonyDto) obj;
 		return id == other.id;
 	}
 
