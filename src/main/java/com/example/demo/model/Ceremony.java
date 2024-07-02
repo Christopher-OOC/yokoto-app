@@ -21,24 +21,24 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="ceremonies")
+public class Ceremony {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(nullable=false)
-	private String userId;
+	private String ceremonyId;
 	
-	private String fullName;
+	private String ceremonyName;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="users_roles", 
-		joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
-		inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id")
+	@JoinTable(name="ceremonies_dishes",
+		joinColumns=@JoinColumn(name="ceremony_id", referencedColumnName="id"),
+		inverseJoinColumns=@JoinColumn(name="dish_id", referencedColumnName="id")
 	)
-	private List<Role> roles = new ArrayList<>();
+	private List<Dish> dishes = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +48,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Ceremony other = (Ceremony) obj;
 		return id == other.id;
 	}
 

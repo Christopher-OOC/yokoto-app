@@ -36,7 +36,7 @@ public class IngredientRepositoryTests {
 		Category category = categoryRepository.findByCategoryName("Spices");
 		
 		Ingredient ingredient = new Ingredient();
-		ingredient.setName("Curry");
+		ingredient.setIngredientName("Curry");
 		ingredient.setIngredientId(PublicIdGeneratorUtils.generatePublicId(30));
 		ingredient.setCategory(category);
 		

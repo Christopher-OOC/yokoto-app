@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,24 +22,27 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="dishes")
+public class Dish {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(nullable=false)
-	private String userId;
+	private String dishId;
 	
-	private String fullName;
+	private String dishName;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="users_roles", 
-		joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
-		inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="id")
+	@JoinTable(name="dishes_ingredients",
+		joinColumns=@JoinColumn(name="dish_id", referencedColumnName="id"),
+		inverseJoinColumns=@JoinColumn(name="ingredient_id", referencedColumnName="id")
 	)
-	private List<Role> roles = new ArrayList<>();
+	private List<Ingredient> ingredients = new ArrayList<>();
+	
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private Locale locale;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,7 +52,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Dish other = (Dish) obj;
 		return id == other.id;
 	}
 
