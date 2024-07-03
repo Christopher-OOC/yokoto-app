@@ -33,19 +33,23 @@ public class Caterer {
 	
 	private String businessName;
 	
+	// Tell customer why they should hire you
+	private String motto;
+	
 	private Date dateRegistered;
 	
 	@Column(name="logo_url")
 	private String logoURL;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToOne(mappedBy="caterer", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private Customer customer;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
 	private List<MediaPost> images = new ArrayList<>();
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
 	private List<MediaPost> videos = new ArrayList<>();
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private User user;
 
 	@Override
 	public boolean equals(Object obj) {

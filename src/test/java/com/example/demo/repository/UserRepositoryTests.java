@@ -41,7 +41,6 @@ public class UserRepositoryTests {
 		role1.setAuthorities(Arrays.asList(authority1, authority2, authority3));
 		
 		User user = new User();
-		user.setUserId(PublicIdGeneratorUtils.generatePublicId(30));
 		user.setEmail("test@test.com");
 		user.setRoles(Arrays.asList(role1));
 		

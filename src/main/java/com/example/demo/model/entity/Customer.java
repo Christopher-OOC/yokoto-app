@@ -1,20 +1,15 @@
 package com.example.demo.model.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -23,27 +18,42 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="cater_assistants")
-public class CaterAssistant {
+@Table(name="customers")
+public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	private String caterAssistantId;
+	@Column(nullable=false)
+	private String customerId;
 	
 	@Column(nullable=false)
-	private String nickname;
+	private String email;
 	
-	@Enumerated(EnumType.STRING)
-	private EducationQualification qualification;
+	@Column(nullable=false)
+	private String firstName;
 	
-	@OneToOne(mappedBy="caterAssistant", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private Customer customer;
+	@Column(nullable=false)
+	private String lastName;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="cater_assistant_skills")
-	private List<CaterSkill> caterSkill = new ArrayList<>();
+	@Column(nullable=false)
+	private String password;
+	
+	@Column(nullable=false)
+	private Date dateOfBirth;
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private Location location;
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private User user;
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private Caterer caterer;
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private CaterAssistant caterAssistant;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -53,7 +63,7 @@ public class CaterAssistant {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CaterAssistant other = (CaterAssistant) obj;
+		Customer other = (Customer) obj;
 		return id == other.id;
 	}
 
