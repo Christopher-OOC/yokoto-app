@@ -11,12 +11,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserDto {
-	
+
 	private long id;
-	
-	private String userId;
-	
-	private String fullName;
+
+	private String email;
+
+	private String password;
+
+	private boolean emailVerificationStatus;
+
+	private String emailVerificationToken;
+
+	private String passwordResetToken;
 
 	private List<RoleDto> roles = new ArrayList<>();
 
