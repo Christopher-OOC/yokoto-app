@@ -38,9 +38,6 @@ public class Customer {
 	private String lastName;
 	
 	@Column(nullable=false)
-	private String password;
-	
-	@Column(nullable=false)
 	private Date dateOfBirth;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)

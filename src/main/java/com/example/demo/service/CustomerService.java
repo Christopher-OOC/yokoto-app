@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.model.request.CustomerRequestModel;
+import com.example.demo.model.dto.CustomerDto;
 
 public interface CustomerService {
 	
-	void save(CustomerRequestModel customerInRequest);
+	void save(CustomerDto customerDto);
+	
+	CustomerDto findByEmail(String email);
 
 }

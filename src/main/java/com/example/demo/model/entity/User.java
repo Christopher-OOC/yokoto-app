@@ -34,11 +34,11 @@ public class User {
 	@Column(nullable=false)
 	private String password;
 	
-	private String emailVerificationStatus;
+	private boolean emailVerificationStatus;
 	
 	private String emailVerificationToken;
 	
-	private String passwordVerificationToken;
+	private String passwordResetToken;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@JoinTable(name="users_roles", 

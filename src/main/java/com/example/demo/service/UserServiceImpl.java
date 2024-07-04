@@ -20,16 +20,6 @@ public class UserServiceImpl {
 		this.modelMapper = modelMapper;
 	}
 	
-	public UserDto findByUserId(String userId) {
-		
-		User user = userRepository.findByUserId(userId);
-		
-		if (user == null) {
-			throw new UserNotFoundException(userId);
-		}
-		
-		return modelMapper.map(user, UserDto.class);
-	}
 	
 	public void saveUser(User user) {
 		userRepository.save(user);

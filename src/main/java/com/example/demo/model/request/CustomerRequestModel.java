@@ -3,6 +3,7 @@ package com.example.demo.model.request;
 import java.util.Date;
 
 import com.example.demo.model.entity.Location;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +20,9 @@ public class CustomerRequestModel {
 
 	private String password;
 
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date dateOfBirth;
 
-	private Location location;
+	private LocationRequestModel location;
 
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.dto.CustomerDto;
 import com.example.demo.model.request.CustomerRequestModel;
 import com.example.demo.model.response.RequestStatus;
 import com.example.demo.model.response.ResponseMessage;
@@ -28,7 +29,15 @@ public class CustomerApiController {
 	
 	@PostMapping
 	public ResponseEntity<ResponseMessage> registerACustomer(@RequestBody CustomerRequestModel customerInRequest) {
-		customerService.save(customerInRequest);
+		
+		System.out.println("HERE 0");
+		
+		CustomerDto customerDto = modelMapper.map(customerInRequest, CustomerDto.class);
+		
+		
+		System.out.println("HERE 1");
+		customerService.save(customerDto);
+		System.out.println("HERE 2");
 		
 		ResponseMessage message = new ResponseMessage();
 		message.setRequestStatus(RequestStatus.REGISTERED);
