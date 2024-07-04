@@ -29,15 +29,11 @@ public class CustomerApiController {
 	
 	@PostMapping
 	public ResponseEntity<ResponseMessage> registerACustomer(@RequestBody CustomerRequestModel customerInRequest) {
-		
-		System.out.println("HERE 0");
-		
+				
 		CustomerDto customerDto = modelMapper.map(customerInRequest, CustomerDto.class);
 		
 		
-		System.out.println("HERE 1");
 		customerService.save(customerDto);
-		System.out.println("HERE 2");
 		
 		ResponseMessage message = new ResponseMessage();
 		message.setRequestStatus(RequestStatus.REGISTERED);

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(value="com.example.demo.exceptionhandler")
 @ComponentScan(value="com.example.demo.service")
 @ComponentScan(value="com.example.demo.security")
+@ComponentScan(value="com.example.demo.initializer")
 @EnableJpaRepositories(value="com.example.demo.repository")
 @EntityScan(value="com.example.demo.model.entity")
 

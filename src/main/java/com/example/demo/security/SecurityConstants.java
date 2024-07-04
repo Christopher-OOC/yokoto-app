@@ -8,7 +8,7 @@ public class SecurityConstants {
 	
 	public static final String SIGNUP_URL = "/api/v1/customers";
 	
-	public static final String SIGNIN_URL = "/login";
+	public static final String SIGNIN_URL = "/customers/auth/login";
 	
 	public static final String AUTHORIZATION_HEADER_PREFIX = "Authorization";
 	

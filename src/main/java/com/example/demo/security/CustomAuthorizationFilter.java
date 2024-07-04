@@ -37,52 +37,50 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
-		String authorizationHeaderWithStringBearer = request.getHeader(SecurityConstants.AUTHORIZATION_HEADER_PREFIX);
-		
-		String actualToken = authorizationHeaderWithStringBearer.replace(SecurityConstants.AUTHORIZATION_TOKEN_PREFIX, "");
-		
-		UsernamePasswordAuthenticationToken authentication = getAuthentication(actualToken);
-		
+
+		UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
+
 		chain.doFilter(request, response);
 	}
 
-	private UsernamePasswordAuthenticationToken getAuthentication(String actualToken) {
-		
-		if (actualToken == null || actualToken.isBlank()) {
+	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+
+		String authorizationHeaderWithStringBearer = request.getHeader(SecurityConstants.AUTHORIZATION_HEADER_PREFIX);
+
+		if (authorizationHeaderWithStringBearer == null || authorizationHeaderWithStringBearer.isBlank()) {
 			return null;
 		}
 		
-		
+		String actualToken = authorizationHeaderWithStringBearer.replace(SecurityConstants.AUTHORIZATION_TOKEN_PREFIX, "");
+
 		byte[] secretByte = Base64.getEncoder().encode(SecurityConstants.TOKEN_SECRET.getBytes());
-		
+
 		SecretKey key = new SecretKeySpec(secretByte, SignatureAlgorithm.HS512.getJcaName());
-		
-		JwtParser parser = Jwts.parser()
-			.setSigningKey(key)
-			.build();
-		
+
+		JwtParser parser = Jwts.parser().setSigningKey(key).build();
+
 		Jwt<?, ?> jwt = parser.parse(actualToken);
-		Claims payload = (Claims)jwt.getPayload();
-		
+		Claims payload = (Claims) jwt.getPayload();
+
 		String email = payload.getSubject();
-		
+
 		Date now = new Date();
-		
+
 		Date tokenExpiration = payload.getExpiration();
-		
+
 		if (tokenExpiration.before(now)) {
 			return null;
 		}
-		
+
 		UserService userService = (UserService) CustomApplicationContext.getBean("userServiceImpl");
-		
+
 		UserDto userDto = userService.findByEmail(email);
-		
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDto.getEmail(), userDto.getPassword(), null);
-		
+
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDto.getEmail(),
+				userDto.getPassword(), null);
+
 		return authentication;
 	}
 }

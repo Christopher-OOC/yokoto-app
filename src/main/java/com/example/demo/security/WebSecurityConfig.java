@@ -1,5 +1,7 @@
 package com.example.demo.security;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +41,7 @@ public class WebSecurityConfig {
 				throw new UsernameNotFoundException("No user found!!!");
 			}
 			
-			return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), null);
+			return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.emptyList());
 		};
 	}
 	
@@ -74,5 +76,4 @@ public class WebSecurityConfig {
 		 
 		 return http.build();
 	}
-
 }
