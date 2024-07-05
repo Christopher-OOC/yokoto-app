@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.exception.NoResourceFoundException;
+import com.example.demo.model.constant.ExceptionMessages;
 import com.example.demo.model.constant.Roles;
 import com.example.demo.model.dto.CustomerDto;
 import com.example.demo.model.entity.Customer;
@@ -69,6 +70,18 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		if (customer == null) {
 			throw new NoResourceFoundException("No such customer");
+		}
+		
+		return modelMapper.map(customer, CustomerDto.class);
+	}
+
+	@Override
+	public CustomerDto findByCustomerId(String customerId) {
+		
+		Customer customer = customerRepository.findByCustomerId(customerId);
+		
+		if (customer == null) {
+			throw new NoResourceFoundException(ExceptionMessages.NO_CUSTOMER);
 		}
 		
 		return modelMapper.map(customer, CustomerDto.class);

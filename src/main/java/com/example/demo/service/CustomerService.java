@@ -7,5 +7,7 @@ public interface CustomerService {
 	void save(CustomerDto customerDto);
 	
 	CustomerDto findByEmail(String email);
+	
+	CustomerDto findByCustomerId(String customerId);
 
 }
