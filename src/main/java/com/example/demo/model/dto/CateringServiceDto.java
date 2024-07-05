@@ -10,13 +10,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CatererDto {
+public class CateringServiceDto {
 	
 	private long id;
 	
-	private String catererId;
+	private String cateringServiceId;
 	
 	private String businessName;
+	
+	private String businessVision;
 	
 	private Date dateRegistered;
 	
@@ -41,7 +43,7 @@ public class CatererDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CatererDto other = (CatererDto) obj;
+		CateringServiceDto other = (CateringServiceDto) obj;
 		return id == other.id;
 	}
 }

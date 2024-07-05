@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import com.example.demo.model.entity.CaterAssistant;
-import com.example.demo.model.entity.Caterer;
+import com.example.demo.model.entity.CateringService;
 import com.example.demo.model.entity.Location;
 import com.example.demo.model.entity.User;
 
@@ -33,7 +33,7 @@ public class CustomerDto {
 
 	private User user;
 
-	private Caterer caterer;
+	private CateringService cateringService;
 
 	private CaterAssistant caterAssistant;
 

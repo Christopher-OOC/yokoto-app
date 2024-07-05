@@ -22,19 +22,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="caterers")
-public class Caterer {
+public class CateringService {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(nullable=false)
-	private String catererId;
+	private String cateringServiceId;
 	
 	private String businessName;
 	
 	// Tell customer why they should hire you
-	private String motto;
+	private String businessVision;
 	
 	private Date dateRegistered;
 	
@@ -59,7 +59,7 @@ public class Caterer {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Caterer other = (Caterer) obj;
+		CateringService other = (CateringService) obj;
 		return id == other.id;
 	}
 
