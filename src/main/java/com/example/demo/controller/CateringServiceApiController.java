@@ -17,7 +17,7 @@ import com.example.demo.service.CateringService;
 import com.example.demo.service.CustomerService;
 
 @RestController
-@RequestMapping(value="/api/v1/catering-service")
+@RequestMapping(value="/api/v1/catering-services")
 public class CateringServiceApiController {
 	
 	private CustomerService customerService;
