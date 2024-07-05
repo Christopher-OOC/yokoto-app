@@ -32,7 +32,6 @@ public class CustomerApiController {
 				
 		CustomerDto customerDto = modelMapper.map(customerInRequest, CustomerDto.class);
 		
-		
 		customerService.save(customerDto);
 		
 		ResponseMessage message = new ResponseMessage();
