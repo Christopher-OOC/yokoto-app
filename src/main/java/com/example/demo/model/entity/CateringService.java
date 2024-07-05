@@ -41,7 +41,7 @@ public class CateringService {
 	@Column(name="logo_url")
 	private String logoURL;
 	
-	@OneToOne(mappedBy="caterer", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToOne(mappedBy="cateringService", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Customer customer;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
