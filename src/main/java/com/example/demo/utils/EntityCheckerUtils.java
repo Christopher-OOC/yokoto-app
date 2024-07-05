@@ -21,7 +21,7 @@ public class EntityCheckerUtils {
 		this.modelMapper = modelMapper;
 	}
 	
-	public CustomerDto checkIfCustomerExists(String customerId) {
+	public Customer checkIfCustomerExists(String customerId) {
 		
 		Customer customer = customerRepository.findByCustomerId(customerId);
 		
@@ -29,7 +29,7 @@ public class EntityCheckerUtils {
 			throw new NoResourceFoundException(ExceptionMessages.NO_CUSTOMER);
 		}
 		
-		return modelMapper.map(customer, CustomerDto.class);
+		return customer;
 	}
 
 }

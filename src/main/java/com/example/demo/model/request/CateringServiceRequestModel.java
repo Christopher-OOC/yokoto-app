@@ -10,8 +10,6 @@ public class CateringServiceRequestModel {
 	private String businessName;
 
 	private String businessVision;
-
-	private String logoURL;
 	
 	private LocationRequestModel location;
 

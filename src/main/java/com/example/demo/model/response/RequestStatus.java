@@ -4,6 +4,7 @@ public enum RequestStatus {
 	
 	REGISTERED,
 	DELETED,
-	UPDATED
+	UPDATED, 
+	CREATED
 
 }

@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.dto.CateringServiceDto;
 import com.example.demo.model.request.CateringServiceRequestModel;
+import com.example.demo.model.response.RequestStatus;
 import com.example.demo.model.response.ResponseMessage;
+import com.example.demo.model.response.ResponseStatus;
 import com.example.demo.service.CateringService;
 import com.example.demo.service.CustomerService;
 
 @RestController
-@RequestMapping(value="/api/v1/caterers")
+@RequestMapping(value="/api/v1/catering-service")
 public class CateringServiceApiController {
 	
 	private CustomerService customerService;
@@ -38,7 +40,11 @@ public class CateringServiceApiController {
 		CateringServiceDto dto = modelMapper.map(requestModel, CateringServiceDto.class);
 		
 		cateringService.createCateringService(customerId, dto);
+		
+		ResponseMessage message = new ResponseMessage();
+		message.setRequestStatus(RequestStatus.CREATED);
+		message.setResponseStatus(ResponseStatus.SUCCESS);
 	
-	
+		return ResponseEntity.ok(message);
 	}
 }
