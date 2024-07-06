@@ -24,11 +24,9 @@ import lombok.NoArgsConstructor;
 @Table(name="catering_services")
 public class CateringService {
 
+	// cateringServiceId will be the same as customerId 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
-	
-	@Column(nullable=false)
+	@Column(name="catering_service_id")
 	private String cateringServiceId;
 	
 	private String businessName;
@@ -52,7 +50,6 @@ public class CateringService {
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
 	private List<MediaPost> videos = new ArrayList<>();
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -63,12 +60,11 @@ public class CateringService {
 		if (getClass() != obj.getClass())
 			return false;
 		CateringService other = (CateringService) obj;
-		return id == other.id;
+		return Objects.equals(cateringServiceId, other.cateringServiceId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(cateringServiceId);
 	}
-	
 }

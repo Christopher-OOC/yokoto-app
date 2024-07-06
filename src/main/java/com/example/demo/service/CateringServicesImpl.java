@@ -36,8 +36,11 @@ public class CateringServicesImpl implements CateringServices {
 	public void createCateringService(String customerId, CateringServiceDto cateringServiceDto) {
 		
 		Customer customer = entityCheckerUtils.checkIfCustomerExists(customerId);
+		
+		
+		
 		CateringService cateringService = modelMapper.map(cateringServiceDto, CateringService.class);
-		cateringService.setCateringServiceId(PublicIdGeneratorUtils.generatePublicId(30));
+		cateringService.setCateringServiceId(customer.getCustomerId());
 		cateringService.setDateRegistered(new Date());
 		cateringService.setCustomer(customer);
 		

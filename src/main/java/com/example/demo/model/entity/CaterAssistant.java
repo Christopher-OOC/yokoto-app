@@ -10,8 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
@@ -26,12 +24,11 @@ import lombok.NoArgsConstructor;
 @Table(name="cater_assistants")
 public class CaterAssistant {
 	
+	// caterAssistantId will be the same as customerId 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
-	
+	@Column(name="catering_assistant_id")
 	private String caterAssistantId;
-	
+		
 	@Column(nullable=false)
 	private String nickname;
 	
@@ -54,11 +51,11 @@ public class CaterAssistant {
 		if (getClass() != obj.getClass())
 			return false;
 		CaterAssistant other = (CaterAssistant) obj;
-		return id == other.id;
+		return Objects.equals(caterAssistantId, other.caterAssistantId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(caterAssistantId);
 	}
 }

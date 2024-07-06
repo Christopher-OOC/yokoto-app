@@ -14,22 +14,18 @@ import com.example.demo.model.response.RequestStatus;
 import com.example.demo.model.response.ResponseMessage;
 import com.example.demo.model.response.ResponseStatus;
 import com.example.demo.service.CateringServices;
-import com.example.demo.service.CustomerService;
 
 @RestController
 @RequestMapping("/api/v1/catering-services")
 public class CateringServiceApiController {
-	
-	private CustomerService customerService;
-	
+		
 	private CateringServices cateringServices;
 	
 	private ModelMapper modelMapper;
 	
-	public CateringServiceApiController(CustomerService customerService, CateringServices cateringServices,
+	public CateringServiceApiController(CateringServices cateringServices,
 			ModelMapper modelMapper) {
 		super();
-		this.customerService = customerService;
 		this.cateringServices = cateringServices;
 		this.modelMapper = modelMapper;
 	}
@@ -40,7 +36,6 @@ public class CateringServiceApiController {
 		
 		CateringServiceDto dto = modelMapper.map(requestModel, CateringServiceDto.class);
 		cateringServices.createCateringService(customerId, dto);
-		System.out.println("HERE 3s");
 		
 		ResponseMessage message = new ResponseMessage();
 		message.setRequestStatus(RequestStatus.CREATED);
