@@ -84,10 +84,6 @@ public class RolesAndAuthoritiesInitializer {
 			role = new Role();
 			role.setRoleName(roleName);
 			
-			for (Authority auth : authorities) {
-				auth.getRoles().add(role);
-			}
-			
 			role.setAuthorities(authorities);
 			
 			Role save = roleRepository.save(role);

@@ -25,9 +25,6 @@ public class Authority {
 	private long id;
 	
 	private String authorityName;
-	
-	@ManyToMany(mappedBy="authorities", fetch=FetchType.EAGER)
-	List<Role> roles = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {

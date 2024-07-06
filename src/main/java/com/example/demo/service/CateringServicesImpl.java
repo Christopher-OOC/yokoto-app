@@ -14,20 +14,20 @@ import com.example.demo.utils.EntityCheckerUtils;
 import com.example.demo.utils.PublicIdGeneratorUtils;
 
 @Service
-public class CateringServiceImpl implements com.example.demo.service.CateringService {
+public class CateringServicesImpl implements CateringServices {
 	
 	private CustomerRepository customerRepository;
 	
 	private CateringServiceRepository cateringServiceRepository;
 	
-	private EntityCheckerUtils entityCheckerUtils;
+//	private EntityCheckerUtils entityCheckerUtils;
 	
 	private ModelMapper modelMapper;
 	
-	public CateringServiceImpl(CustomerRepository customerRepository, EntityCheckerUtils entityCheckerUtils, 
+	public CateringServicesImpl(CustomerRepository customerRepository, EntityCheckerUtils entityCheckerUtils, 
 			CateringServiceRepository cateringServiceRepository, ModelMapper modelMapper) {
 		this.customerRepository = customerRepository;
-		this.entityCheckerUtils = entityCheckerUtils;
+		//this.entityCheckerUtils = entityCheckerUtils;
 		this.cateringServiceRepository = cateringServiceRepository;
 		this.modelMapper = modelMapper;
 	}
@@ -35,14 +35,21 @@ public class CateringServiceImpl implements com.example.demo.service.CateringSer
 	@Override
 	public void createCateringService(String customerId, CateringServiceDto cateringServiceDto) {
 		
-		Customer customer = entityCheckerUtils.checkIfCustomerExists(customerId);
-		
+		System.out.println("HERE 3");
+		//Customer customer = entityCheckerUtils.checkIfCustomerExists(customerId);
+		Customer customer = customerRepository.findByCustomerId(customerId);
+		System.out.println("HERE 4");
 		CateringService cateringService = modelMapper.map(cateringServiceDto, CateringService.class);
 		cateringService.setCateringServiceId(PublicIdGeneratorUtils.generatePublicId(30));
 		cateringService.setDateRegistered(new Date());
 		cateringService.setCustomer(customer);
 		
-		cateringServiceRepository.save(cateringService);
+		customer.setCateringService(cateringService);
+		System.out.println("HERE 5");
+		customerRepository.save(customer);
+		System.out.println("HERE 6");
+		
+		//cateringServiceRepository.save(cateringService);
 	}
 
 }

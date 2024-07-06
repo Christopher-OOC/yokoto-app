@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler(NoResourceFoundException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorMessage handleNoResourceFoundException(HttpServletRequest request, NoResourceFoundException ex) {
 		
 		ErrorMessage error = new ErrorMessage();

@@ -22,6 +22,7 @@ import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.lang.Collections;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -77,10 +78,13 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 		UserService userService = (UserService) CustomApplicationContext.getBean("userServiceImpl");
 
 		UserDto userDto = userService.findByEmail(email);
+		
+		System.out.println(userDto);
 
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDto.getEmail(),
-				userDto.getPassword(), null);
+				null, Collections.emptyList());
 
+		System.out.println("HERE 2");
 		return authentication;
 	}
 }

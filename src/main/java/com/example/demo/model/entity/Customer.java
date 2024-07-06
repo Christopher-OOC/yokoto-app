@@ -49,7 +49,7 @@ public class Customer {
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private User user;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToOne(fetch=FetchType.EAGER)
 	private CateringService cateringService;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
