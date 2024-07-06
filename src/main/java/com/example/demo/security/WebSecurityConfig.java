@@ -58,6 +58,7 @@ public class WebSecurityConfig {
 		 http.authorizeHttpRequests(request -> request
 				.requestMatchers(HttpMethod.POST, SecurityConstants.SIGNUP_URL).permitAll()
 				.requestMatchers(HttpMethod.POST, SecurityConstants.SIGNIN_URL).permitAll()
+				.anyRequest().authenticated()
 			);
 		 
 		 CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter(authenticationManger(http));

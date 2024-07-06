@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="caterers")
+@Table(name="catering_services")
 public class CateringService {
 
 	@Id
@@ -41,7 +41,7 @@ public class CateringService {
 	@Column(name="logo_url")
 	private String logoURL;
 	
-	@OneToOne(mappedBy="cateringService", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToOne(mappedBy="cateringService", fetch=FetchType.EAGER)
 	private Customer customer;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)

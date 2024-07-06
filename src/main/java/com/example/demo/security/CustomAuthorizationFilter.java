@@ -40,10 +40,11 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 			throws IOException, ServletException {
 
 		UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
-
+		System.out.println("A");
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
+		System.out.println("A");
 		chain.doFilter(request, response);
+		System.out.println("A");
 	}
 
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {

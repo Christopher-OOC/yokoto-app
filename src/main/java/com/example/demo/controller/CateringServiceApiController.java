@@ -17,7 +17,7 @@ import com.example.demo.service.CateringServices;
 import com.example.demo.service.CustomerService;
 
 @RestController
-@RequestMapping(value="/api/v1/catering-services")
+@RequestMapping("/api/v1/catering-services")
 public class CateringServiceApiController {
 	
 	private CustomerService customerService;
@@ -30,17 +30,17 @@ public class CateringServiceApiController {
 			ModelMapper modelMapper) {
 		super();
 		this.customerService = customerService;
+		this.cateringServices = cateringServices;
 		this.modelMapper = modelMapper;
 	}
 	
-	@PostMapping(value="/{customerId}")
+	@PostMapping("/{customerId}")
 	public ResponseEntity<ResponseMessage> createCateringService(@PathVariable("customerId") String customerId, 
 			@RequestBody CateringServiceRequestModel requestModel) {
 		
 		CateringServiceDto dto = modelMapper.map(requestModel, CateringServiceDto.class);
-		System.out.println("HERE 2");
 		cateringServices.createCateringService(customerId, dto);
-		System.out.println("HERE 2");
+		System.out.println("HERE 3s");
 		
 		ResponseMessage message = new ResponseMessage();
 		message.setRequestStatus(RequestStatus.CREATED);
