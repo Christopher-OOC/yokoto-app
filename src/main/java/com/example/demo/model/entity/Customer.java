@@ -55,7 +55,7 @@ public class Customer {
 	private CateringService cateringService;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private CaterAssistant caterAssistant;
+	private CatererAssistant catererAssistant;
 
 	@Override
 	public boolean equals(Object obj) {

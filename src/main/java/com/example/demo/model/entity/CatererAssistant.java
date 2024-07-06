@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="cater_assistants")
-public class CaterAssistant {
+public class CatererAssistant {
 	
 	// caterAssistantId will be the same as customerId 
 	@Id
@@ -50,7 +50,7 @@ public class CaterAssistant {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CaterAssistant other = (CaterAssistant) obj;
+		CatererAssistant other = (CatererAssistant) obj;
 		return Objects.equals(caterAssistantId, other.caterAssistantId);
 	}
 

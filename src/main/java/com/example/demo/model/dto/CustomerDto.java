@@ -3,7 +3,7 @@ package com.example.demo.model.dto;
 import java.util.Date;
 import java.util.Objects;
 
-import com.example.demo.model.entity.CaterAssistant;
+import com.example.demo.model.entity.CatererAssistant;
 import com.example.demo.model.entity.CateringService;
 import com.example.demo.model.entity.Location;
 import com.example.demo.model.entity.User;
@@ -35,7 +35,7 @@ public class CustomerDto {
 
 	private CateringService cateringService;
 
-	private CaterAssistant caterAssistant;
+	private CatererAssistant catererAssistant;
 
 	@Override
 	public boolean equals(Object obj) {

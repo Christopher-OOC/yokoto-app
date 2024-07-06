@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CaterAssistantDto {
+public class CatererAssistantDto {
 	
 	private long id;
 	
@@ -40,7 +40,7 @@ public class CaterAssistantDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CaterAssistantDto other = (CaterAssistantDto) obj;
+		CatererAssistantDto other = (CatererAssistantDto) obj;
 		return id == other.id;
 	}
 
