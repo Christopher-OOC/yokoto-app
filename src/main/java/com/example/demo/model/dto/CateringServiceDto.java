@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.example.demo.model.entity.Location;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +21,8 @@ public class CateringServiceDto {
 	private String businessName;
 	
 	private String businessVision;
+	
+	private LocationDto location;
 	
 	private Date dateRegistered;
 	

@@ -36,10 +36,13 @@ public class CateringService {
 	// Tell customer why they should hire you
 	private String businessVision;
 	
-	private Date dateRegistered;
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private Location location;
 	
 	@Column(name="logo_url")
 	private String logoURL;
+	
+	private Date dateRegistered;
 	
 	@OneToOne(mappedBy="cateringService", fetch=FetchType.EAGER)
 	private Customer customer;
