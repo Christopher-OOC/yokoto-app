@@ -1,7 +1,6 @@
 package com.example.demo.model.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,23 +13,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CatererAssistantDto {
 	
-	private long id;
-	
 	private String caterAssistantId;
 	
-	private String email;
+	private String nickname;
 	
-	private String firstName;
-	
-	private String lastName;
-	
-	private Date dateOfBirth;
+	private CustomerDto customer;
 	
 	private EducationQualification qualification;
 	
-	private UserDto user;
-	
-	private List<CaterSkillDto> caterSkill = new ArrayList<>();
+	private List<CaterSkillDto> caterSkills = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -41,11 +32,11 @@ public class CatererAssistantDto {
 		if (getClass() != obj.getClass())
 			return false;
 		CatererAssistantDto other = (CatererAssistantDto) obj;
-		return id == other.id;
+		return Objects.equals(caterAssistantId, other.caterAssistantId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(caterAssistantId);
 	}
 }

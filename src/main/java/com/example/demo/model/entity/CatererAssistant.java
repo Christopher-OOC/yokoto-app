@@ -35,12 +35,12 @@ public class CatererAssistant {
 	@Enumerated(EnumType.STRING)
 	private EducationQualification qualification;
 	
-	@OneToOne(mappedBy="caterAssistant", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToOne(mappedBy="catererAssistant", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Customer customer;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@JoinTable(name="cater_assistant_skills")
-	private List<CaterSkill> caterSkill = new ArrayList<>();
+	private List<CaterSkill> caterSkills = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {

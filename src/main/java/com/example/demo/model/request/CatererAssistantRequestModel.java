@@ -17,6 +17,6 @@ public class CatererAssistantRequestModel {
 	
 	private EducationQualification qualification;
 	
-	private List<CaterSkill> caterSkill = new ArrayList<>();
+	private List<CaterSkillRequestModel> caterSkills = new ArrayList<>();
 
 }

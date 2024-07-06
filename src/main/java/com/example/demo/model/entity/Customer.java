@@ -55,6 +55,7 @@ public class Customer {
 	private CateringService cateringService;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@JoinColumn(name="caterer_assistant_id")
 	private CatererAssistant catererAssistant;
 
 	@Override
