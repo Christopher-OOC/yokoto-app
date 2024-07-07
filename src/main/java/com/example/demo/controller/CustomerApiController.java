@@ -13,7 +13,7 @@ import com.example.demo.model.dto.CateringServiceDto;
 import com.example.demo.model.dto.CustomerDto;
 import com.example.demo.model.request.CateringServiceRequestModel;
 import com.example.demo.model.request.CustomerRequestModel;
-import com.example.demo.model.request.EventCeremonyRequestModel;
+import com.example.demo.model.request.CeremonyRequestModel;
 import com.example.demo.model.response.RequestStatus;
 import com.example.demo.model.response.ResponseMessage;
 import com.example.demo.model.response.ResponseStatus;
@@ -51,7 +51,7 @@ public class CustomerApiController {
 	}
 	
 	@PostMapping("/{events}")
-	public ResponseEntity<?> createEventCeremony(@RequestBody EventCeremonyRequestModel requestModel) {
+	public ResponseEntity<?> createEventCeremony(@RequestBody CeremonyRequestModel requestModel) {
 		
 		
 		return ResponseEntity.created(null).body(null);
