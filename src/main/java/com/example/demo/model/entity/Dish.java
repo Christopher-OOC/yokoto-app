@@ -32,6 +32,7 @@ public class Dish {
 	@Column(nullable=false)
 	private String dishId;
 	
+	@Column(unique=true)
 	private String dishName;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)

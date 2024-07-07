@@ -32,13 +32,6 @@ public class Ceremony {
 	private String ceremonyId;
 	
 	private String ceremonyName;
-	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="ceremonies_dishes",
-		joinColumns=@JoinColumn(name="ceremony_id", referencedColumnName="id"),
-		inverseJoinColumns=@JoinColumn(name="dish_id", referencedColumnName="id")
-	)
-	private List<Dish> dishes = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {
