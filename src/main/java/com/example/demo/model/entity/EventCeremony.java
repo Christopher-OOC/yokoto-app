@@ -5,7 +5,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,18 +28,30 @@ import lombok.NoArgsConstructor;
 @Table(name="event_ceremonies")
 public class EventCeremony {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(nullable=false)
 	private String eventCeremonyId;
 	
 	private int expectedNumberOfPeople;
 	
 	private Ceremony ceremony;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Customer customer;
+	
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="event_ceremony_dishes",
+			joinColumns=@JoinColumn(name="event_ceremonies_id", referencedColumnName="id"),
+			inverseJoinColumns=@JoinColumn(name="dishes_id", referencedColumnName="id")
+			)
 	private List<Dish> dishesToBePrepared = new ArrayList<>();
 	
 	private Date eventDate;
 	
+	@CreationTimestamp
 	private Date dateCreated;
 	
 	private Location eventLocation;
