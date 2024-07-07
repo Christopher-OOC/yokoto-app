@@ -1,5 +1,5 @@
 package com.example.demo.model.request;
 
-public class CeremonyRequestModel {
+public class EventCeremonyRequestModel {
 
 }
