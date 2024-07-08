@@ -54,6 +54,7 @@ public class CustomerApiController {
 	public ResponseEntity<?> createEventCeremony(@RequestBody EventCeremonyRequestModel requestModel) {
 		
 		
+		
 		return ResponseEntity.created(null).body(null);
 	}
 

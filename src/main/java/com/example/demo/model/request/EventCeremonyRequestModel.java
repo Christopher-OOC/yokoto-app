@@ -29,8 +29,4 @@ public class EventCeremonyRequestModel {
 	private int numberOfMeatPerPerson;
 
 	private CateringServiceType serviceType;
-
-	
-	
-
 }
