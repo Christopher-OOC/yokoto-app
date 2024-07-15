@@ -49,7 +49,7 @@ public class CustomerApiController {
 	}
 	
 	@PostMapping("/{customerId}/events")
-	public ResponseEntity<?> createEventCeremony(@PathVariable("customerId") String customerId, @RequestBody EventCeremonyRequestModel requestModel) {
+	public ResponseEntity<ResponseMessage> createEventCeremony(@PathVariable("customerId") String customerId, @RequestBody EventCeremonyRequestModel requestModel) {
 		
 		EventCeremonyDto dto = modelMapper.map(requestModel, EventCeremonyDto.class);
 		String ceremonyName = requestModel.getCeremonyName();
