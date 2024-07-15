@@ -1,19 +1,23 @@
 package com.example.demo.service;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.exception.NoResourceFoundException;
-import com.example.demo.model.constant.ExceptionMessages;
 import com.example.demo.model.constant.Roles;
 import com.example.demo.model.dto.CustomerDto;
+import com.example.demo.model.dto.EventCeremonyDto;
+import com.example.demo.model.entity.Ceremony;
 import com.example.demo.model.entity.Customer;
+import com.example.demo.model.entity.EventCeremony;
 import com.example.demo.model.entity.User;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.RoleRepository;
+import com.example.demo.utils.EntityCheckerUtils;
 import com.example.demo.utils.PublicIdGeneratorUtils;
 import com.example.demo.utils.TokenGenerators;
 
@@ -26,17 +30,20 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	private RoleRepository roleRepository;
 	
+	private EntityCheckerUtils entityCheckerUtils;
+	
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	private ModelMapper modelMapper;
 	
 	public CustomerServiceImpl(CustomerRepository customerRepository, EmailService emailService,
-			RoleRepository roleRepository,
+			RoleRepository roleRepository, EntityCheckerUtils entityCheckerUtils,
 			BCryptPasswordEncoder passwordEncoder, ModelMapper modelMapper
 			) {
 		this.customerRepository = customerRepository;
 		this.emailService = emailService;
 		this.roleRepository = roleRepository;
+		this.entityCheckerUtils = entityCheckerUtils;
 		this.passwordEncoder = passwordEncoder;
 		this.modelMapper = modelMapper;
 	}
@@ -78,13 +85,23 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public CustomerDto findByCustomerId(String customerId) {
 		
-		Customer customer = customerRepository.findByCustomerId(customerId);
-		
-		if (customer == null) {
-			throw new NoResourceFoundException(ExceptionMessages.NO_CUSTOMER);
-		}
+		Customer customer = entityCheckerUtils.checkIfCustomerExists(customerId);
 		
 		return modelMapper.map(customer, CustomerDto.class);
+	}
+
+	@Override
+	public void postEventCeremony(String customerId, EventCeremonyDto dto, String ceremonyName) {
+		
+		Customer customer = entityCheckerUtils.checkIfCustomerExists(customerId);
+		
+		Ceremony ceremony = entityCheckerUtils.checkIfCeremonyExistsByName(ceremonyName);
+		
+		
+		EventCeremony eventCeremony = modelMapper.map(dto, EventCeremony.class);
+		eventCeremony.setCustomer(customer);
+		eventCeremony.setCeremony(ceremony);
+		eventCeremony.setDateCreated(new Date());
 	}
 
 }

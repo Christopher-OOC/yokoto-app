@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.dto.CustomerDto;
+import com.example.demo.model.dto.EventCeremonyDto;
 
 public interface CustomerService {
 	
@@ -9,5 +10,7 @@ public interface CustomerService {
 	CustomerDto findByEmail(String email);
 	
 	CustomerDto findByCustomerId(String customerId);
+
+	void postEventCeremony(String customerId, EventCeremonyDto dto, String ceremonyName);
 
 }

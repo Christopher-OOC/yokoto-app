@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.exception.NoResourceFoundException;
 import com.example.demo.model.constant.ExceptionMessages;
-import com.example.demo.model.dto.CustomerDto;
 import com.example.demo.model.entity.CatererAssistant;
+import com.example.demo.model.entity.Ceremony;
 import com.example.demo.model.entity.Customer;
 import com.example.demo.repository.CatererAssistantRepository;
 import com.example.demo.repository.CustomerRepository;
@@ -19,6 +19,8 @@ public class EntityCheckerUtils {
 	private CustomerRepository customerRepository;
 	
 	private CatererAssistantRepository catererAssistantRepository;
+	
+	private CeremonyRepository ceremonyRepository;
 	
 	private ModelMapper modelMapper;
 	
@@ -47,6 +49,16 @@ public class EntityCheckerUtils {
 		if (optional.isPresent()) {
 			throw new NoResourceFoundException(ExceptionMessages.CATERER_ASSISTANT_EXISTS);
 		}
+	}
+
+	public Ceremony checkIfCeremonyExistsByName(String ceremonyName) {
+		Ceremony ceremony = ceremonyRepository.findByCeremonyName(ceremonyName);
+		
+		if (ceremony == null) {
+			throw new NoResourceFoundException(ExceptionMessages.NO_CEREMONY);
+		}
+		
+		return ceremony;
 	}
 
 }

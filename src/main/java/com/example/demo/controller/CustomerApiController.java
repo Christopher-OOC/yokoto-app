@@ -2,16 +2,14 @@ package com.example.demo.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.dto.CateringServiceDto;
 import com.example.demo.model.dto.CustomerDto;
-import com.example.demo.model.request.CateringServiceRequestModel;
+import com.example.demo.model.dto.EventCeremonyDto;
 import com.example.demo.model.request.CustomerRequestModel;
 import com.example.demo.model.request.EventCeremonyRequestModel;
 import com.example.demo.model.response.RequestStatus;
@@ -50,12 +48,19 @@ public class CustomerApiController {
 		return ResponseEntity.created(null).body(message);
 	}
 	
-	@PostMapping("/{events}")
-	public ResponseEntity<?> createEventCeremony(@RequestBody EventCeremonyRequestModel requestModel) {
+	@PostMapping("/{customerId}/events")
+	public ResponseEntity<?> createEventCeremony(@PathVariable("customerId") String customerId, @RequestBody EventCeremonyRequestModel requestModel) {
 		
+		EventCeremonyDto dto = modelMapper.map(requestModel, EventCeremonyDto.class);
+		String ceremonyName = requestModel.getCeremonyName();
 		
+		customerService.postEventCeremony(customerId, dto, ceremonyName);
+
+		ResponseMessage message = new ResponseMessage();
+		message.setRequestStatus(RequestStatus.UPLOADED);
+		message.setResponseStatus(ResponseStatus.SUCCESS);
 		
-		return ResponseEntity.created(null).body(null);
+		return ResponseEntity.ok(message);
 	}
 
 }
