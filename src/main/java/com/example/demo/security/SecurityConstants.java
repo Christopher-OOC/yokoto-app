@@ -4,7 +4,7 @@ public class SecurityConstants {
 	
 	public static final String TOKEN_SECRET = "ljhNHJkjHHJjikukiiyY7MNjhhjMJUMHjKJJH;.,KMFj;llkoigth";
 
-	public static final long TOKEN_EXPIRATION = 3600;
+	public static final long TOKEN_EXPIRATION = 3600000000L;
 	
 	public static final String SIGNUP_URL = "/api/v1/customers";
 	

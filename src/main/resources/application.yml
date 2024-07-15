@@ -4,7 +4,7 @@ server:
     context-path: /yokoto
 spring:
   datasource:
-    url: jdbc:mysql://localhost/yokotoo-jpa-criteria-api
+    url: jdbc:mysql://localhost/yokotodb
     username: chris
     password: Chris@24
   jpa:

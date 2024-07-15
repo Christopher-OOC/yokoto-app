@@ -10,8 +10,11 @@ import com.example.demo.model.constant.ExceptionMessages;
 import com.example.demo.model.entity.CatererAssistant;
 import com.example.demo.model.entity.Ceremony;
 import com.example.demo.model.entity.Customer;
+import com.example.demo.model.entity.Dish;
 import com.example.demo.repository.CatererAssistantRepository;
+import com.example.demo.repository.CeremonyRepository;
 import com.example.demo.repository.CustomerRepository;
+import com.example.demo.repository.DishRepository;
 
 @Component
 public class EntityCheckerUtils {
@@ -22,12 +25,17 @@ public class EntityCheckerUtils {
 	
 	private CeremonyRepository ceremonyRepository;
 	
+	private DishRepository dishRepository;
+	
 	private ModelMapper modelMapper;
 	
 	public EntityCheckerUtils(CustomerRepository customerRepository, CatererAssistantRepository catererAssistantRepository,
+			CeremonyRepository ceremonyRepository, DishRepository dishRepository,
 			ModelMapper modelMapper) {
 		this.customerRepository = customerRepository;
 		this.catererAssistantRepository = catererAssistantRepository;
+		this.ceremonyRepository = ceremonyRepository;
+		this.dishRepository = dishRepository;
 		this.modelMapper = modelMapper;
 	}
 	
@@ -59,6 +67,17 @@ public class EntityCheckerUtils {
 		}
 		
 		return ceremony;
+	}
+
+	public Dish checkIfDishExists(String dishId) {
+		
+		Dish dish = dishRepository.findByDishId(dishId);
+		
+		if (dish == null) {
+			throw new NoResourceFoundException(ExceptionMessages.NO_DISH);
+		}
+		
+		return dish;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import com.example.demo.model.entity.CateringServiceType;
 import com.example.demo.model.entity.Location;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,10 @@ public class EventCeremonyRequestModel {
 
 	private String ceremonyName;
 
-	@JsonAlias({"dishedTobePrepared", "dishes"})
-	private List<String> nameOfdishesToBePrepared = new ArrayList<>();
+	@JsonAlias({"dishes_to_be_prepared", "dishes"})
+	private List<String> idOfDishesToBePrepared = new ArrayList<>();
 
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date eventDate;
 
 	private Location eventLocation;

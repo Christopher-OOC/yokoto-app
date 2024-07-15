@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,9 +15,13 @@ import com.example.demo.model.dto.CustomerDto;
 import com.example.demo.model.dto.EventCeremonyDto;
 import com.example.demo.model.entity.Ceremony;
 import com.example.demo.model.entity.Customer;
+import com.example.demo.model.entity.Dish;
 import com.example.demo.model.entity.EventCeremony;
 import com.example.demo.model.entity.User;
+import com.example.demo.model.request.EventCeremonyRequestModel;
 import com.example.demo.repository.CustomerRepository;
+import com.example.demo.repository.DishRepository;
+import com.example.demo.repository.EventCeremonyRepository;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.utils.EntityCheckerUtils;
 import com.example.demo.utils.PublicIdGeneratorUtils;
@@ -28,6 +34,8 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	private EmailService emailService;
 	
+	private EventCeremonyRepository eventCeremonyRepository;
+	
 	private RoleRepository roleRepository;
 	
 	private EntityCheckerUtils entityCheckerUtils;
@@ -38,12 +46,14 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	public CustomerServiceImpl(CustomerRepository customerRepository, EmailService emailService,
 			RoleRepository roleRepository, EntityCheckerUtils entityCheckerUtils,
-			BCryptPasswordEncoder passwordEncoder, ModelMapper modelMapper
+			BCryptPasswordEncoder passwordEncoder, EventCeremonyRepository eventCeremonyRepository,
+			ModelMapper modelMapper
 			) {
 		this.customerRepository = customerRepository;
 		this.emailService = emailService;
 		this.roleRepository = roleRepository;
 		this.entityCheckerUtils = entityCheckerUtils;
+		this.eventCeremonyRepository = eventCeremonyRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.modelMapper = modelMapper;
 	}
@@ -91,17 +101,28 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void postEventCeremony(String customerId, EventCeremonyDto dto, String ceremonyName) {
+	public void postEventCeremony(String customerId, EventCeremonyRequestModel requestModel) {
 		
 		Customer customer = entityCheckerUtils.checkIfCustomerExists(customerId);
 		
-		Ceremony ceremony = entityCheckerUtils.checkIfCeremonyExistsByName(ceremonyName);
+		Ceremony ceremony = entityCheckerUtils.checkIfCeremonyExistsByName(requestModel.getCeremonyName());
+		
+		List<Dish> dishesToBePrepared = new ArrayList<>();
+		
+		requestModel.getIdOfDishesToBePrepared().forEach(dishId -> {
+			Dish dish = entityCheckerUtils.checkIfDishExists(dishId);
+			
+			dishesToBePrepared.add(dish);
+		});
 		
 		
-		EventCeremony eventCeremony = modelMapper.map(dto, EventCeremony.class);
+		EventCeremony eventCeremony = modelMapper.map(requestModel, EventCeremony.class);
 		eventCeremony.setCustomer(customer);
 		eventCeremony.setCeremony(ceremony);
+		eventCeremony.setDishesToBePrepared(dishesToBePrepared);
 		eventCeremony.setDateCreated(new Date());
+		
+		eventCeremonyRepository.save(eventCeremony);
 	}
 
 }
