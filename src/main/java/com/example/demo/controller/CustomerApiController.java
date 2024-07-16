@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.dto.CustomerDto;
-import com.example.demo.model.dto.EventCeremonyDto;
 import com.example.demo.model.request.CustomerRequestModel;
 import com.example.demo.model.request.EventCeremonyRequestModel;
 import com.example.demo.model.response.RequestStatus;
