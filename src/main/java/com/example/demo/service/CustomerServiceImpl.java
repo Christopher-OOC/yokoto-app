@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.exception.NoResourceFoundException;
 import com.example.demo.model.constant.Roles;
 import com.example.demo.model.dto.CustomerDto;
-import com.example.demo.model.dto.EventCeremonyDto;
 import com.example.demo.model.entity.Ceremony;
 import com.example.demo.model.entity.Customer;
 import com.example.demo.model.entity.Dish;
@@ -20,7 +19,6 @@ import com.example.demo.model.entity.EventCeremony;
 import com.example.demo.model.entity.User;
 import com.example.demo.model.request.EventCeremonyRequestModel;
 import com.example.demo.repository.CustomerRepository;
-import com.example.demo.repository.DishRepository;
 import com.example.demo.repository.EventCeremonyRepository;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.utils.EntityCheckerUtils;
@@ -117,6 +115,7 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		
 		EventCeremony eventCeremony = modelMapper.map(requestModel, EventCeremony.class);
+		eventCeremony.setEventCeremonyId(PublicIdGeneratorUtils.generatePublicId(30));
 		eventCeremony.setCustomer(customer);
 		eventCeremony.setCeremony(ceremony);
 		eventCeremony.setDishesToBePrepared(dishesToBePrepared);
