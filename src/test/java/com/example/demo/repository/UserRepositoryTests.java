@@ -18,7 +18,7 @@ import com.example.demo.utils.PublicIdGeneratorUtils;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace=Replace.NONE)
-@Rollback(false)
+@Rollback(true)
 public class UserRepositoryTests {
 	
 	@Autowired

@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import java.util.Collections;
 
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,9 @@ public class WebSecurityConfig {
 	
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private EntityManager manager;
 	
 	@Bean
 	protected BCryptPasswordEncoder passwordEncoder() {
@@ -48,12 +52,17 @@ public class WebSecurityConfig {
 	@Bean
 	protected AuthenticationManager authenticationManger(HttpSecurity http) throws Exception {
 		AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
-		
+
 		return builder.build();
 	}
-	
+
 	@Bean
-	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+		AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
+		builder.userDetailsService(userDetailsService());
+
+		AuthenticationManager manager = builder.getObject();
 		
 		 http.authorizeHttpRequests(request -> request
 				.requestMatchers(HttpMethod.POST, SecurityConstants.SIGNUP_URL).permitAll()
@@ -61,10 +70,10 @@ public class WebSecurityConfig {
 				.anyRequest().authenticated()
 			);
 		 
-		 CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter(authenticationManger(http));
+		 CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter(manager);
 		 authenticationFilter.setFilterProcessesUrl(SecurityConstants.SIGNIN_URL);
 		 
-		 CustomAuthorizationFilter authorizationFilter = new CustomAuthorizationFilter(authenticationManger(http));
+		 CustomAuthorizationFilter authorizationFilter = new CustomAuthorizationFilter(manager);
 		 
 		 http.addFilter(authenticationFilter);
 		 http.addFilter(authorizationFilter);

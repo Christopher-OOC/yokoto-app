@@ -28,7 +28,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Component
 public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 
 	public CustomAuthorizationFilter(AuthenticationManager authenticationManager) {
