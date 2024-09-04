@@ -26,9 +26,6 @@ public class CustomerRepositoryTests {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-//	@Autowired
-//	private BCryptPasswordEncoder passwordEncoder;
-	
 	@Autowired
 	private RoleRepository roleRepository;
 	
