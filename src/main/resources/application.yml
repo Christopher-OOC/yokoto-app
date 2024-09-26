@@ -15,4 +15,4 @@ spring:
 my-aws:
   s3:
     access-key: hello
-    secret-key: hello
+    secret-key:
