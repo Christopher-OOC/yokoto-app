@@ -39,10 +39,9 @@ public class BusinessRetailApiController {
 
         BusinessRetailDto businessRetailDto = modelMapper.map(businessRetailModel, BusinessRetailDto.class);
 
-        MediaPost mediaPost = fileService.uploadFile(multipartFile);
+        businessRetailService.registerBusiness(customerId, businessRetailDto);
 
-        businessRetailService.registerBusiness(customerId, businessRetailDto, mediaPost);
-
+        MediaPost mediaPost = fileService.uploadFile(businessRetailDto, multipartFile);
 
 
 
