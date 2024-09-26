@@ -6,6 +6,7 @@ import com.example.demo.service.FileService;
 import com.example.demo.utils.AwsServiceUtil;
 import com.example.demo.utils.FileEncoderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +14,11 @@ import java.io.IOException;
 
 @Service
 public class FileServiceImpl implements FileService {
+
+    @Value("{}")
+    private String accessKey;
+
+    private String secretKey;
 
     @Override
     public MediaPost uploadFile(BusinessRetailDto businessRetailDto,
