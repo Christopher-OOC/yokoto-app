@@ -5,6 +5,7 @@ import com.example.demo.model.entity.MediaPost;
 import com.example.demo.model.request.BusinessRetailRequestModel;
 import com.example.demo.service.BusinessRetailService;
 import com.example.demo.service.CustomerService;
+import com.example.demo.service.FileService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class BusinessRetailApiController {
         MediaPost mediaPost = fileService.uploadFile(businessRetailDto, multipartFile);
 
 
-
+        return ResponseEntity.created(null).body("Success");
 
     }
 

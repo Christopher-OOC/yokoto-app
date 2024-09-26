@@ -11,35 +11,45 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Service
 public class FileServiceImpl implements FileService {
 
-    @Value("{}")
+    @Value("{my-aws.s3.access-key}")
     private String accessKey;
 
+    @Value("{my-aws.s3.secret-key}")
     private String secretKey;
 
     @Override
     public MediaPost uploadFile(BusinessRetailDto businessRetailDto,
                                 MultipartFile multipartFile) {
 
+        MediaPost mediaPost = new MediaPost();
+
         try {
 
             byte[] fileContent = multipartFile.getBytes();
             String fileToString = FileEncoderUtil.encodedFileToString(fileContent);
 
-            AwsServiceUtil.uploadFile();
+            String bucketName = businessRetailDto.getBusinessId();
+            String fileName = "images/" + new Date().toString();
 
+            AwsServiceUtil.uploadFile(
+                    accessKey, secretKey,
+                    bucketName, fileName,
+                    fileToString);
 
+            mediaPost.setDatePosted(new Date());
+            mediaPost.setMediaURL(fileName);
 
-
+            return mediaPost;
         }
         catch (IOException ex) {
-
+            ex.printStackTrace();
         }
 
-
-
+        return mediaPost;
     }
 }

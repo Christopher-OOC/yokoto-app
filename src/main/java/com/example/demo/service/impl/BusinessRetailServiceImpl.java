@@ -9,7 +9,9 @@ import com.example.demo.repository.CustomerRepository;
 import com.example.demo.service.BusinessRetailService;
 import com.example.demo.utils.EntityCheckerUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BusinessRetailServiceImpl implements BusinessRetailService {
 
     private CustomerRepository customerRepository;
