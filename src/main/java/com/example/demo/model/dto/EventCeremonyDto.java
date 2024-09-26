@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import com.example.demo.model.entity.CateringServiceType;
 import com.example.demo.model.entity.Ceremony;
 import com.example.demo.model.entity.Customer;
 import com.example.demo.model.entity.Dish;
@@ -37,8 +36,6 @@ public class EventCeremonyDto {
 	private Location eventLocation;
 
 	private int numberOfMeatPerPerson;
-
-	private CateringServiceType serviceType;
 
 	@Override
 	public boolean equals(Object obj) {

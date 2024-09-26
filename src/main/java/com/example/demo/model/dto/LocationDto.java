@@ -11,6 +11,8 @@ public class LocationDto {
 	
 	private long id;
 
+	private String streetAddress;
+
 	private String cityName;
 
 	private String state;

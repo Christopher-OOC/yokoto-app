@@ -7,11 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.exception.NoResourceFoundException;
 import com.example.demo.model.constant.ExceptionMessages;
-import com.example.demo.model.entity.CatererAssistant;
 import com.example.demo.model.entity.Ceremony;
 import com.example.demo.model.entity.Customer;
 import com.example.demo.model.entity.Dish;
-import com.example.demo.repository.CatererAssistantRepository;
 import com.example.demo.repository.CeremonyRepository;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.DishRepository;
@@ -21,19 +19,16 @@ public class EntityCheckerUtils {
 	
 	private CustomerRepository customerRepository;
 	
-	private CatererAssistantRepository catererAssistantRepository;
-	
 	private CeremonyRepository ceremonyRepository;
 	
 	private DishRepository dishRepository;
 	
 	private ModelMapper modelMapper;
 	
-	public EntityCheckerUtils(CustomerRepository customerRepository, CatererAssistantRepository catererAssistantRepository,
+	public EntityCheckerUtils(CustomerRepository customerRepository,
 			CeremonyRepository ceremonyRepository, DishRepository dishRepository,
 			ModelMapper modelMapper) {
 		this.customerRepository = customerRepository;
-		this.catererAssistantRepository = catererAssistantRepository;
 		this.ceremonyRepository = ceremonyRepository;
 		this.dishRepository = dishRepository;
 		this.modelMapper = modelMapper;
@@ -48,15 +43,6 @@ public class EntityCheckerUtils {
 		}
 		
 		return customer;
-	}
-
-	public void checkIfCatererAssistantDoesNotExist(String customerId) {
-		
-		Optional<CatererAssistant> optional = catererAssistantRepository.findById(customerId);
-		
-		if (optional.isPresent()) {
-			throw new NoResourceFoundException(ExceptionMessages.CATERER_ASSISTANT_EXISTS);
-		}
 	}
 
 	public Ceremony checkIfCeremonyExistsByName(String ceremonyName) {

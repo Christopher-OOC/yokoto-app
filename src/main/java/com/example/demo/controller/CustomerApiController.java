@@ -14,7 +14,6 @@ import com.example.demo.model.request.EventCeremonyRequestModel;
 import com.example.demo.model.response.RequestStatus;
 import com.example.demo.model.response.ResponseMessage;
 import com.example.demo.model.response.ResponseStatus;
-import com.example.demo.service.CateringServices;
 import com.example.demo.service.CustomerService;
 
 @RestController
@@ -23,13 +22,10 @@ public class CustomerApiController {
 	
 	private CustomerService customerService;
 	
-	private CateringServices cateringServices;
-	
 	private ModelMapper modelMapper;
 	
-	public CustomerApiController(CustomerService customerService, CateringServices cateringServices, ModelMapper modelMapper) {
+	public CustomerApiController(CustomerService customerService, ModelMapper modelMapper) {
 		this.customerService = customerService;
-		this.cateringServices = cateringServices;
 		this.modelMapper = modelMapper;
 	}
 	
@@ -38,7 +34,7 @@ public class CustomerApiController {
 				
 		CustomerDto customerDto = modelMapper.map(customerInRequest, CustomerDto.class);
 		
-		customerService.save(customerDto);
+		customerService.createCustomer(customerDto);
 		
 		ResponseMessage message = new ResponseMessage();
 		message.setRequestStatus(RequestStatus.REGISTERED);
@@ -46,17 +42,4 @@ public class CustomerApiController {
 		
 		return ResponseEntity.created(null).body(message);
 	}
-	
-	@PostMapping("/{customerId}/events")
-	public ResponseEntity<ResponseMessage> createEventCeremony(@PathVariable("customerId") String customerId, @RequestBody EventCeremonyRequestModel requestModel) {
-		
-		customerService.postEventCeremony(customerId, requestModel);
-
-		ResponseMessage message = new ResponseMessage();
-		message.setRequestStatus(RequestStatus.UPLOADED);
-		message.setResponseStatus(ResponseStatus.SUCCESS);
-		
-		return ResponseEntity.ok(message);
-	}
-
 }

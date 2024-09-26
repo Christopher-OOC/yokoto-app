@@ -1,5 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
+import com.example.demo.service.AdminService;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.dto.AdminDto;

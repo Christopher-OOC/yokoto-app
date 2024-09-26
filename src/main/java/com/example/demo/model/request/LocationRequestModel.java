@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LocationRequestModel {
 
+	private String streetAddress;
+
 	private String cityName;
 
 	private String state;

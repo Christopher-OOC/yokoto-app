@@ -1,5 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
+import com.example.demo.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

@@ -62,9 +62,6 @@ public class EventCeremony {
 	private Location eventLocation;
 	
 	private int numberOfMeatPerPerson;
-	
-	@Enumerated(EnumType.STRING)
-	private CateringServiceType serviceType;
 
 	@Override
 	public boolean equals(Object obj) {

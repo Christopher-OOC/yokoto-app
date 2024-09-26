@@ -22,4 +22,10 @@ public class SpringJpaCriteriaPracticeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringJpaCriteriaPracticeApplication.class, args);
 	}
+
+	public void main(String argd) {
+		System.out.println("jjhskjjkff");
+	}
+
+
 }

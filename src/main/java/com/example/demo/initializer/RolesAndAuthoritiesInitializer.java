@@ -5,13 +5,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.example.demo.utils.PublicIdGeneratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.model.constant.Roles;
 import com.example.demo.model.entity.Authority;
 import com.example.demo.model.entity.Customer;
 import com.example.demo.model.entity.Location;
@@ -95,30 +95,33 @@ public class RolesAndAuthoritiesInitializer {
 	}
 
 	private void createSuperAdmin(List<Role> roles) {
-		String superAdminEmail = "test@test.com";
+		String superAdminEmail = "olojedechristopher24@gmail.com";
 		
-		Customer customer = customerRepository.findByEmail(superAdminEmail);
+		User customer = userRepository.findByEmail(superAdminEmail);
 		
 		if (customer != null) {
 			return;
 		}
 
 		Customer newCustomer = new Customer();
-		newCustomer.setEmail(superAdminEmail);
 		newCustomer.setFirstName("Christopher");
 		newCustomer.setLastName("Olojede");
 		newCustomer.setDateOfBirth(new Date());
-		newCustomer.setCustomerId("kuyjjjskdhsadiadlpoi");
+		newCustomer.setCustomerId(PublicIdGeneratorUtils.generatePublicId(30));
 		
 		Location location = new Location();
+		location.setStreetAddress("17, Allen Avenue, Ikeja, Lagos.");
 		location.setCityName("Lagos");
 		location.setCountry("Nigeria");
 		location.setState("Ogun");
 		
 		newCustomer.setLocation(location);
+
+		customerRepository.save(newCustomer);
 		
 		User user = new User();
-		user.setEmail(newCustomer.getEmail());
+		user.setCustomerId(newCustomer.getCustomerId());
+		user.setEmail(superAdminEmail);
 		user.setEmailVerificationStatus(true);
 		user.setEmailVerificationToken(null);
 		user.setPassword(passwordEncoder.encode("chris"));
@@ -127,10 +130,8 @@ public class RolesAndAuthoritiesInitializer {
 		roles.forEach(role-> {
 			user.getRoles().add(role);
 		});
-		
-		newCustomer.setUser(user);
-		
-		customerRepository.save(newCustomer);
+
+		userRepository.save(user);
 	}
 	
 }

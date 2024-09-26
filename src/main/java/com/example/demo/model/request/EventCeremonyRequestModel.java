@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.example.demo.model.entity.CateringServiceType;
 import com.example.demo.model.entity.Location;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -30,5 +29,4 @@ public class EventCeremonyRequestModel {
 
 	private int numberOfMeatPerPerson;
 
-	private CateringServiceType serviceType;
 }

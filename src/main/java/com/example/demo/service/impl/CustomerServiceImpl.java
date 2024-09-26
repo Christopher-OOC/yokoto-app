@@ -1,15 +1,17 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.CustomerService;
+import com.example.demo.service.EmailService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.exception.NoResourceFoundException;
 import com.example.demo.model.constant.Roles;
 import com.example.demo.model.dto.CustomerDto;
 import com.example.demo.model.entity.Ceremony;
@@ -29,6 +31,8 @@ import com.example.demo.utils.TokenGenerators;
 public class CustomerServiceImpl implements CustomerService {
 	
 	private CustomerRepository customerRepository;
+
+	private UserRepository userRepository;
 	
 	private EmailService emailService;
 	
@@ -45,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerServiceImpl(CustomerRepository customerRepository, EmailService emailService,
 			RoleRepository roleRepository, EntityCheckerUtils entityCheckerUtils,
 			BCryptPasswordEncoder passwordEncoder, EventCeremonyRepository eventCeremonyRepository,
-			ModelMapper modelMapper
+			ModelMapper modelMapper, UserRepository userRepository
 			) {
 		this.customerRepository = customerRepository;
 		this.emailService = emailService;
@@ -54,40 +58,29 @@ public class CustomerServiceImpl implements CustomerService {
 		this.eventCeremonyRepository = eventCeremonyRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.modelMapper = modelMapper;
+		this.userRepository = userRepository;
 	}
 
 	@Override
-	public void save(CustomerDto customerDto) {
-		
-		System.out.println("HERE 3");
+	public void createCustomer(CustomerDto customerDto) {
 		
 		Customer customerEntity = modelMapper.map(customerDto, Customer.class);
 		customerEntity.setCustomerId(PublicIdGeneratorUtils.generatePublicId(30));
-		
+
+		customerRepository.save(customerEntity);
+
 		User user = new User();
+		user.setCustomerId(customerEntity.getCustomerId());
 		user.setEmail(customerDto.getEmail());
 		user.setPassword(passwordEncoder.encode(customerDto.getPassword()));
-		user.setEmailVerificationStatus(false);
+		user.setEmailVerificationStatus(true);
 		user.setEmailVerificationToken(TokenGenerators.generateEmailVerificationToken(customerDto.getEmail()));
 		user.setPasswordResetToken(null);
 		user.setRoles(Arrays.asList(roleRepository.findByRoleName(Roles.CUSTOMER.name())));
-		
-		customerEntity.setUser(user);
-		
-		customerRepository.save(customerEntity);
+
+		userRepository.save(user);
 		
 		//emailService.sendEmailVerification(user);
-	}
-
-	@Override
-	public CustomerDto findByEmail(String email) {
-		Customer customer = customerRepository.findByEmail(email);
-		
-		if (customer == null) {
-			throw new NoResourceFoundException("No such customer");
-		}
-		
-		return modelMapper.map(customer, CustomerDto.class);
 	}
 
 	@Override

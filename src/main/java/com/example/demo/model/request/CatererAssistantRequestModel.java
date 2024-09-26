@@ -3,7 +3,6 @@ package com.example.demo.model.request;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.model.entity.CaterSkill;
 import com.example.demo.model.entity.EducationQualification;
 
 import lombok.Data;

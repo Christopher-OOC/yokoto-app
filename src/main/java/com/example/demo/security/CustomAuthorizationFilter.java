@@ -38,7 +38,7 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+		UsernamePasswordAuthenticationToken authentication = getAuthentication(request, response);
 		System.out.println("A");
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		System.out.println("A");
@@ -46,7 +46,7 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 		System.out.println("A");
 	}
 
-	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) {
 
 		String authorizationHeaderWithStringBearer = request.getHeader(SecurityConstants.AUTHORIZATION_HEADER_PREFIX);
 
@@ -78,8 +78,6 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
 		UserService userService = (UserService) CustomApplicationContext.getBean("userServiceImpl");
 
 		UserDto userDto = userService.findByEmail(email);
-		
-		System.out.println(userDto);
 
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDto.getEmail(),
 				null, Collections.emptyList());

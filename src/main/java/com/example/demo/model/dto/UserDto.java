@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
 
-	private long id;
+	private String customerId;
 
 	private String email;
 
@@ -28,7 +28,7 @@ public class UserDto {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(customerId);
 	}
 
 	@Override
@@ -40,6 +40,6 @@ public class UserDto {
 		if (getClass() != obj.getClass())
 			return false;
 		UserDto other = (UserDto) obj;
-		return id == other.id;
+		return customerId == other.customerId;
 	}
 }

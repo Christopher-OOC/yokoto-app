@@ -2,11 +2,7 @@ package com.example.demo.model.entity;
 
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,11 +15,17 @@ public class Location {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	
+
+	@Column(nullable = false)
+	private String streetAddress;
+
+	@Column(nullable = false)
 	private String cityName;
-	
+
+	@Column(nullable = false)
 	private String state;
-	
+
+	@Column(nullable = false)
 	private String country;
 
 	@Override

@@ -8,18 +8,17 @@ import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.example.demo.model.dto.UserDto;
+import com.example.demo.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 
 import com.example.demo.CustomApplicationContext;
-import com.example.demo.model.dto.CustomerDto;
 import com.example.demo.model.request.UserLoginRequestModel;
-import com.example.demo.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Jwts;
@@ -58,10 +57,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 		
 		String email = ((User)authResult.getPrincipal()).getUsername();
 		
-		CustomerService customerService = (CustomerService)CustomApplicationContext.getBean("customerServiceImpl");
-		CustomerDto customer = customerService.findByEmail(email);
+		UserService userService = (UserService)CustomApplicationContext.getBean("userServiceImpl");
+		UserDto userDto = userService.findByEmail(email);
 		
-		String customerId = customer.getCustomerId();
+		String customerId = userDto.getCustomerId();
 		
 		byte[] secretByte = Base64.getEncoder().encode(SecurityConstants.TOKEN_SECRET.getBytes());
 		
