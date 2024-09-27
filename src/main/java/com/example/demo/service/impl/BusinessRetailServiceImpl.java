@@ -59,9 +59,19 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
             businessRetail.setBusinessId(businessId);
             customer.setBusiness(businessRetail);
 
-            MediaPost mediaPost = fileService.uploadFile(businessId, multipartFile);
+            MediaPost mediaPost = null;
 
-            customerRepository.save(customer);
+            try {
+
+                mediaPost = fileService.uploadFile(businessId, multipartFile);
+
+                businessRetail.setBusinessLogo(mediaPost.getMediaURL());
+
+                customerRepository.save(customer);
+            }
+            catch (Exception ex) {
+                customerRepository.save(customer);
+            }
         }
         else {
             throw new ResourceAlreadyExistsException("You have already created a business with name: "
