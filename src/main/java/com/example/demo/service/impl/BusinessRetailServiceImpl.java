@@ -21,13 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class BusinessRetailServiceImpl implements BusinessRetailService {
 
     private CustomerRepository customerRepository;
-
     private BusinessRetailRepository businessRetailRepository;
-
     private ModelMapper modelMapper;
-
     private EntityCheckerUtils entityCheckerUtils;
-
     private FileService fileService;
 
     public BusinessRetailServiceImpl(
@@ -45,7 +41,7 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
     }
 
     @Override
-    public void registerBusiness(String customerId,
+    public Customer registerBusiness(String customerId,
                                  BusinessRetailDto businessRetailDto,
                                  MultipartFile multipartFile) {
 
@@ -67,10 +63,10 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
 
                 businessRetail.setBusinessLogo(mediaPost.getMediaURL());
 
-                customerRepository.save(customer);
+                return customerRepository.save(customer);
             }
             catch (Exception ex) {
-                customerRepository.save(customer);
+                return customerRepository.save(customer);
             }
         }
         else {

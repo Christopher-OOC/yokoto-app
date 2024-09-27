@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.dto.BusinessRetailDto;
+import com.example.demo.model.entity.Customer;
 import com.example.demo.model.entity.MediaPost;
 import com.example.demo.model.request.BusinessRetailRequestModel;
 import com.example.demo.service.BusinessRetailService;
@@ -41,18 +42,13 @@ public class BusinessRetailApiController {
             @RequestPart(name = "data")  BusinessRetailRequestModel businessRetailModel,
             @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
 
-        System.out.println(businessRetailModel);
-        System.out.println("File Name: " + multipartFile.getOriginalFilename());
-
         BusinessRetailDto businessRetailDto = modelMapper.map(businessRetailModel, BusinessRetailDto.class);
 
-        businessRetailService.registerBusiness(customerId,
+        Customer customer = businessRetailService.registerBusiness(customerId,
                 businessRetailDto,
                 multipartFile);
 
 
-        return ResponseEntity.created(null).body("Sucess");
-
+        return ResponseEntity.created(null).body(customer);
     }
-
 }

@@ -8,12 +8,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="ingredients")
-public class Ingredient extends Item implements Packetable {
+@Table(name="cooking_oils")
+public class CookingOil extends Item implements Volumetric {
 
     {
-        category = Category.INGREDIENT;
+        category = Category.COOKING_OIL;
     }
-	
+
+    private double volume;
+
+    private Unit unit;
 
 }

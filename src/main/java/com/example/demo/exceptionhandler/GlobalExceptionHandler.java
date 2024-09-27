@@ -2,6 +2,7 @@ package com.example.demo.exceptionhandler;
 
 import java.util.Date;
 
+import com.example.demo.exception.ResourceAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -36,6 +37,18 @@ public class GlobalExceptionHandler {
 		error.setMessage(ex.getMessage());
 		error.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
 		
+		return error;
+	}
+
+	@ExceptionHandler(ResourceAlreadyExistsException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorMessage handleResourceAlreadyExistsException(HttpServletRequest request, ResourceAlreadyExistsException ex) {
+
+		ErrorMessage error = new ErrorMessage();
+		error.setDate(new Date());
+		error.setMessage(ex.getMessage());
+		error.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+
 		return error;
 	}
 

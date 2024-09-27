@@ -26,6 +26,9 @@ public class MediaPost {
 	
 	@Column(name="media_url")
 	private String mediaURL;
+
+	@Column(name="file_type")
+	private String fileType;
 	
 	@CreationTimestamp
 	private Date datePosted;

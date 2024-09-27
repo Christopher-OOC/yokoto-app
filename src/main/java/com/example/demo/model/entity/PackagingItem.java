@@ -8,12 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="ingredients")
-public class Ingredient extends Item implements Packetable {
+@Table(name="packaging_items")
+public class PackagingItem extends Item {
 
     {
-        category = Category.INGREDIENT;
+        category = Category.PACKAGING_ITEM;
     }
-	
-
 }

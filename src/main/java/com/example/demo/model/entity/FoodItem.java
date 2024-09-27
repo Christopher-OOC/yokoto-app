@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="ingredients")
-public class Ingredient extends Item implements Packetable {
+@Table(name="food_items")
+public class FoodItem extends Item implements Weightable {
 
     {
-        category = Category.INGREDIENT;
+        category = Category.FOOD_ITEM;
     }
-	
+
+    private double weight;
+    private Unit unit;
 
 }
