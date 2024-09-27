@@ -14,5 +14,5 @@ spring:
 
 my-aws:
   s3:
-    access-key: hello
-    secret-key: oo
+    access-key:
+    secret-key:

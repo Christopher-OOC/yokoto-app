@@ -6,6 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
 
-    MediaPost uploadFile(BusinessRetailDto businessRetailDto, MultipartFile multipartFile);
+    MediaPost uploadFile(String businessId, MultipartFile multipartFile);
 
 }

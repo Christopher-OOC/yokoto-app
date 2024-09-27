@@ -7,6 +7,7 @@ import com.example.demo.service.BusinessRetailService;
 import com.example.demo.service.CustomerService;
 import com.example.demo.service.FileService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,20 +33,25 @@ public class BusinessRetailApiController {
         this.fileService = fileService;
     }
 
-    @PostMapping("/{customerId}")
+    @PostMapping(value="/{customerId}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> createBusiness(
-            @PathVariable("customerId") String customerId,
-            @RequestBody BusinessRetailRequestModel businessRetailModel,
-            @RequestParam("file")MultipartFile multipartFile) {
+            @PathVariable(value="customerId") String customerId,
+            @RequestPart(name = "data")  BusinessRetailRequestModel businessRetailModel,
+            @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+
+        System.out.println(businessRetailModel);
+        System.out.println("File Name: " + multipartFile.getOriginalFilename());
 
         BusinessRetailDto businessRetailDto = modelMapper.map(businessRetailModel, BusinessRetailDto.class);
 
-        businessRetailService.registerBusiness(customerId, businessRetailDto);
+        businessRetailService.registerBusiness(customerId,
+                businessRetailDto,
+                multipartFile);
 
-        MediaPost mediaPost = fileService.uploadFile(businessRetailDto, multipartFile);
 
-
-        return ResponseEntity.created(null).body("Success");
+        return ResponseEntity.created(null).body("Sucess");
 
     }
 

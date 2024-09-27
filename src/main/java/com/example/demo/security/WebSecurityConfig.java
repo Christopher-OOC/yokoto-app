@@ -42,6 +42,7 @@ public class WebSecurityConfig {
 
 		 http.addFilter(authenticationFilter);
 		 http.addFilter(authorizationFilter);
+		 http.authenticationManager(authenticationManager);
 		 
 		 http.sessionManagement(session -> session
 				 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

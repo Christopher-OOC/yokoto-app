@@ -25,7 +25,6 @@ public class BusinessRetail {
     @Column(nullable = false)
     private String businessName;
 
-    @Column(nullable = false)
     private String businessLogo;
 
     @Column(length = 500, nullable = false)

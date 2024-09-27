@@ -16,24 +16,26 @@ import java.util.Date;
 @Service
 public class FileServiceImpl implements FileService {
 
-    @Value("{my-aws.s3.access-key}")
+    @Value("${my-aws.s3.access-key}")
     private String accessKey;
 
-    @Value("{my-aws.s3.secret-key}")
+    @Value("${my-aws.s3.secret-key}")
     private String secretKey;
 
     @Override
-    public MediaPost uploadFile(BusinessRetailDto businessRetailDto,
+    public MediaPost uploadFile(String businessId,
                                 MultipartFile multipartFile) {
 
         MediaPost mediaPost = new MediaPost();
+        System.out.println("Access-Key: " + accessKey);
+        System.out.println("Secret-Key: " + secretKey);
 
         try {
 
             byte[] fileContent = multipartFile.getBytes();
             String fileToString = FileEncoderUtil.encodedFileToString(fileContent);
 
-            String bucketName = businessRetailDto.getBusinessId();
+            String bucketName = businessId.toLowerCase();
             String fileName = "images/" + new Date().toString();
 
             AwsServiceUtil.uploadFile(
