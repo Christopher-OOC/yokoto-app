@@ -13,6 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 @RestController
 @RequestMapping("/api/v1/business/")
 public class BusinessRetailApiController {
@@ -40,7 +44,7 @@ public class BusinessRetailApiController {
     public ResponseEntity<?> createBusiness(
             @PathVariable(value="customerId") String customerId,
             @RequestPart(name = "data")  BusinessRetailRequestModel businessRetailModel,
-            @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+            @RequestParam(value = "file", required = false) MultipartFile multipartFile) throws FileNotFoundException {
 
         BusinessRetailDto businessRetailDto = modelMapper.map(businessRetailModel, BusinessRetailDto.class);
 

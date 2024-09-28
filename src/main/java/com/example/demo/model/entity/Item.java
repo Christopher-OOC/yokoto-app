@@ -18,7 +18,6 @@ public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     protected Long id;
-    protected String itemId;
     protected String name;
     protected double price;
     protected Category category;

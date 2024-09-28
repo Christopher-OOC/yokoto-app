@@ -15,8 +15,7 @@ public class CookingOil extends Item implements Volumetric {
         category = Category.COOKING_OIL;
     }
 
-    private double volume;
 
-    private Unit unit;
+    private ItemVolume itemVolume;;
 
 }

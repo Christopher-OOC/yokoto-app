@@ -1,6 +1,8 @@
 package com.example.demo.model.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,8 @@ public class Fish extends Item implements Weightable {
     }
 
     private FishType fishType;
-    private double weight;
-    private Unit unit;
+
+    @Enumerated(EnumType.STRING)
+    private ItemWeight itemWeight;
 
 }
