@@ -31,10 +31,11 @@ public class ItemServiceImpl implements ItemService {
 
         ItemType<Item> itemType = getItemType(itemDto);
 
+        Item item = itemType.getItem();
 
+        BusinessRetail businessOwner = businessRetailRepository.findByBusinessId(businessId);
 
-
-
+        item.setBusinessRetail(businessOwner);
 
 
     }
@@ -119,7 +120,4 @@ public class ItemServiceImpl implements ItemService {
         item.setPrice(itemDto.getPrice());
         item.setCategory(Category.COOKING_OIL);
     }
-
-
-
 }
