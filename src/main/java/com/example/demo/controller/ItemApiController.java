@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.dto.ItemDto;
 import com.example.demo.model.request.ItemRequestModel;
+import com.example.demo.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,11 +29,7 @@ public class ItemApiController {
 
         ItemDto itemDto = modelMapper.map(itemRequestModel, ItemDto.class);
 
-
-
-
-
-
+        return null;
     }
 
 

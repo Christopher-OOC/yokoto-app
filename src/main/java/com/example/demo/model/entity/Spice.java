@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Entity
-@Table(name="spices")
+//@Table(name="spices")
 @DiscriminatorValue(value = "spice")
 public class Spice extends Item {
 

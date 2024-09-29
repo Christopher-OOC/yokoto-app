@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@Rollback(true)
+@Rollback(value = false)
 public class BusinessRetailRepositoryTest {
 
     @Autowired

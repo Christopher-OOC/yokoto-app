@@ -6,9 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="meats")
+//@Table(name="meats")
 @DiscriminatorValue(value = "meats")
 public class Meat extends Item implements Weightable {
 
@@ -16,6 +17,7 @@ public class Meat extends Item implements Weightable {
         category = Category.MEAT;
     }
 
+    @Enumerated(EnumType.STRING)
     private MeatType meatType;
 
     @Enumerated(EnumType.STRING)

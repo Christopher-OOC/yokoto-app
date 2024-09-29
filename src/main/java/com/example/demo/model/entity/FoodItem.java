@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="food_items")
+//@Table(name="food_items")
 @DiscriminatorValue(value = "food")
 public class FoodItem extends Item implements Weightable {
 

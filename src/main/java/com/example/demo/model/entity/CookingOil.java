@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="cooking_oils")
+//@Table(name="cooking_oils")
 @DiscriminatorValue(value = "oils")
 public class CookingOil extends Item implements Volumetric {
 

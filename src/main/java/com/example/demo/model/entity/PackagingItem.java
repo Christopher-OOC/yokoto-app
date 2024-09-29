@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="packaging_items")
+//@Table(name="packaging_items")
 @DiscriminatorValue(value = "packs")
 public class PackagingItem extends Item {
 

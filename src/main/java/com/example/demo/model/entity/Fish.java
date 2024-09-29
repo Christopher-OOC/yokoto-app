@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="fishes")
+//@Table(name="fishes")
 @DiscriminatorValue(value = "fishes")
 public class Fish extends Item implements Weightable {
 

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="ingredients")
+//@Table(name="ingredients")
 @DiscriminatorValue(value = "ingre")
 public class Ingredient extends Item implements Packetable {
 
