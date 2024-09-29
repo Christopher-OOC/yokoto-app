@@ -16,13 +16,17 @@ import org.springframework.web.multipart.MultipartFile;
 public class ItemServiceImpl implements ItemService {
 
     private BusinessRetailRepository businessRetailRepository;
-
     private ItemRepository itemRepository;
-
     private ModelMapper modelMapper;
 
+    public ItemServiceImpl(BusinessRetailRepository businessRetailRepository,
+                           ItemRepository itemRepository,
+                           ModelMapper modelMapper) {
 
-
+        this.businessRetailRepository = businessRetailRepository;
+        this.itemRepository = itemRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public ItemType<?> uploadItem(String businessId, ItemDto itemDto, MultipartFile multipartFile) {
