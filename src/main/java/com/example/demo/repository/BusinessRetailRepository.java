@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BusinessRetailRepository extends JpaRepository<BusinessRetail, Long> {
 
-
-
+    BusinessRetail findByBusinessId(String businessId);
 
 }
