@@ -1,9 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.ResourceAlreadyExistsException;
 import com.example.demo.model.dto.BusinessRetailDto;
 import com.example.demo.model.entity.Customer;
 import com.example.demo.model.entity.MediaPost;
 import com.example.demo.model.request.BusinessRetailRequestModel;
+import com.example.demo.model.response.RequestStatus;
+import com.example.demo.model.response.ResponseMessage;
+import com.example.demo.model.response.ResponseStatus;
 import com.example.demo.service.BusinessRetailService;
 import com.example.demo.service.CustomerService;
 import com.example.demo.service.FileService;
@@ -40,19 +44,22 @@ public class BusinessRetailApiController {
 
     @PostMapping(value="/{customerId}",
             produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+            consumes = {})
     public ResponseEntity<?> createBusiness(
             @PathVariable(value="customerId") String customerId,
-            @RequestPart(name = "data")  BusinessRetailRequestModel businessRetailModel,
-            @RequestParam(value = "file", required = false) MultipartFile multipartFile) throws FileNotFoundException {
+            @RequestBody( required = false)  BusinessRetailRequestModel businessRetailModel,
+            @RequestParam(value = "file", required = false) MultipartFile multipartFile) throws ResourceAlreadyExistsException {
 
         BusinessRetailDto businessRetailDto = modelMapper.map(businessRetailModel, BusinessRetailDto.class);
 
-        Customer customer = businessRetailService.registerBusiness(customerId,
+        businessRetailService.registerBusiness(customerId,
                 businessRetailDto,
                 multipartFile);
 
+        ResponseMessage message = new ResponseMessage();
+        message.setRequestStatus(RequestStatus.REGISTERED);
+        message.setResponseStatus(ResponseStatus.SUCCESS);
 
-        return ResponseEntity.created(null).body(customer);
+        return ResponseEntity.created(null).body(message);
     }
 }

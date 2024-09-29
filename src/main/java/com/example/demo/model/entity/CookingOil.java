@@ -16,6 +16,6 @@ public class CookingOil extends Item implements Volumetric {
     }
 
 
-    private ItemVolume itemVolume;;
+    private ItemVolume itemVolume;
 
 }

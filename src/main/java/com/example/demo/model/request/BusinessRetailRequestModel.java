@@ -23,7 +23,7 @@ public class BusinessRetailRequestModel implements Serializable {
 
     private BusinessType businessType;
 
-    private Location location;
+    private LocationRequestModel location;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateCreated;

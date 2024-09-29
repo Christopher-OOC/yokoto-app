@@ -41,9 +41,9 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
     }
 
     @Override
-    public Customer registerBusiness(String customerId,
+    public void registerBusiness(String customerId,
                                  BusinessRetailDto businessRetailDto,
-                                 MultipartFile multipartFile) {
+                                 MultipartFile multipartFile) throws ResourceAlreadyExistsException {
 
         Customer customer = entityCheckerUtils.checkIfCustomerExists(customerId);
 
@@ -63,10 +63,10 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
 
                 businessRetail.setBusinessLogo(mediaPost.getMediaURL());
 
-                return customerRepository.save(customer);
+                customerRepository.save(customer);
             }
             catch (Exception ex) {
-                return customerRepository.save(customer);
+                customerRepository.save(customer);
             }
         }
         else {

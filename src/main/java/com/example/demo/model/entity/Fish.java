@@ -17,9 +17,9 @@ public class Fish extends Item implements Weightable {
         category = Category.FISH;
     }
 
+    @Enumerated(EnumType.STRING)
     private FishType fishType;
 
-    @Enumerated(EnumType.STRING)
     private ItemWeight itemWeight;
 
 }

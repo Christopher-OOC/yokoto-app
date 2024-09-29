@@ -32,8 +32,6 @@ public class BusinessRetailDto {
 
     private Customer customer;
 
-    private List<MediaPost> images = new ArrayList<>();
-
     private Date dateCreated;
 
     @Override

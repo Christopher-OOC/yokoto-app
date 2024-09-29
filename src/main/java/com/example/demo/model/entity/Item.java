@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
 
@@ -20,7 +19,12 @@ public abstract class Item {
     protected Long id;
     protected String name;
     protected double price;
+
+    @Enumerated(EnumType.STRING)
     protected Category category;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    protected BusinessRetail businessRetail;
 
     @Override
     public boolean equals(Object o) {

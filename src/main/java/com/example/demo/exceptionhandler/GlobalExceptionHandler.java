@@ -54,7 +54,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		ErrorMessage error = new ErrorMessage();
 		error.setDate(new Date());
 		error.setMessage(ex.getMessage());
-		error.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		error.setStatusCode(HttpStatus.BAD_REQUEST.value());
 
 		return error;
 	}

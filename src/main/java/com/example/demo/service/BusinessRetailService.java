@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface BusinessRetailService {
 
-    Customer registerBusiness(String customerId,
+    void registerBusiness(String customerId,
                               BusinessRetailDto businessRetailDto,
                               MultipartFile multipartFile);
 
