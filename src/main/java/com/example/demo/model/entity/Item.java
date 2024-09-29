@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -26,6 +28,9 @@ public abstract class Item {
 
     @ManyToOne(fetch = FetchType.EAGER)
     protected BusinessRetail businessRetail;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
+    List<MediaPost> images = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

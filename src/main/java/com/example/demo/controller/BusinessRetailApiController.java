@@ -47,7 +47,7 @@ public class BusinessRetailApiController {
             consumes = {})
     public ResponseEntity<?> createBusiness(
             @PathVariable(value="customerId") String customerId,
-            @RequestBody( required = false)  BusinessRetailRequestModel businessRetailModel,
+            @RequestPart( required = false)  BusinessRetailRequestModel businessRetailModel,
             @RequestParam(value = "file", required = false) MultipartFile multipartFile) throws ResourceAlreadyExistsException {
 
         BusinessRetailDto businessRetailDto = modelMapper.map(businessRetailModel, BusinessRetailDto.class);

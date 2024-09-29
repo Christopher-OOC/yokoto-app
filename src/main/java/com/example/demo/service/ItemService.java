@@ -9,6 +9,6 @@ public interface ItemService {
     ItemType<?> uploadItem(
             String businessId,
             ItemDto itemDto,
-            MultipartFile multipartFile);
+            MultipartFile[] multipartFiles);
 
 }

@@ -5,6 +5,7 @@ import com.example.demo.model.entity.*;
 import com.example.demo.model.generictype.ItemType;
 import com.example.demo.repository.BusinessRetailRepository;
 import com.example.demo.repository.ItemRepository;
+import com.example.demo.service.FileService;
 import com.example.demo.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,24 +17,32 @@ public class ItemServiceImpl implements ItemService {
     private BusinessRetailRepository businessRetailRepository;
     private ItemRepository itemRepository;
     private ModelMapper modelMapper;
+    private FileService fileService;
 
     public ItemServiceImpl(BusinessRetailRepository businessRetailRepository,
                            ItemRepository itemRepository,
-                           ModelMapper modelMapper) {
+                           ModelMapper modelMapper,
+                           FileService fileService) {
 
         this.businessRetailRepository = businessRetailRepository;
         this.itemRepository = itemRepository;
         this.modelMapper = modelMapper;
+        this.fileService = fileService;
     }
 
     @Override
-    public ItemType<?> uploadItem(String businessId, ItemDto itemDto, MultipartFile multipartFile) {
+    public ItemType<?> uploadItem(String businessId, ItemDto itemDto, MultipartFile[] multipartFiles) {
 
         ItemType<Item> itemType = getItemType(itemDto);
         Item item = itemType.getItem();
 
         BusinessRetail businessOwner = businessRetailRepository.findByBusinessId(businessId);
         item.setBusinessRetail(businessOwner);
+
+        for (int i = 0; i < multipartFiles.length; i++) {
+            MediaPost image = fileService.uploadFile(businessId, multipartFiles[i]);
+            item.getImages().add(image);
+        }
 
         Item saveItem = itemRepository.save(item);
         itemType.setItem(saveItem);
