@@ -3,13 +3,26 @@ package com.example.demo.service.impl;
 import com.example.demo.model.dto.ItemDto;
 import com.example.demo.model.entity.*;
 import com.example.demo.model.generictype.ItemType;
+import com.example.demo.repository.BusinessRetailRepository;
+import com.example.demo.repository.ItemRepository;
+import com.example.demo.service.BusinessRetailService;
 import com.example.demo.service.ItemService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ItemServiceImpl implements ItemService {
 
+    @Autowired
+    private BusinessRetailRepository businessRetailRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
 
 
