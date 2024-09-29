@@ -15,13 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    @Autowired
     private BusinessRetailRepository businessRetailRepository;
 
-    @Autowired
     private ItemRepository itemRepository;
 
-    @Autowired
     private ModelMapper modelMapper;
 
 
