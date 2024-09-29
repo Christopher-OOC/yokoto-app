@@ -7,6 +7,9 @@ import com.example.demo.model.entity.ItemWeight;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.spi.MatchingStrategy;
 
 import java.util.Objects;
 
@@ -22,6 +25,12 @@ public class ItemDto {
     private ItemVolumeDto itemVolume;
     private BusinessRetailDto businessRetail;
     private String businessId;
+    private ModelMapper modelMapper;
+
+    {
+        modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -36,5 +45,18 @@ public class ItemDto {
         return Objects.hashCode(id);
     }
 
-    public Ite
+    public ItemWeight convertAttributeItemWeightDtoToEntity() {
+
+        return modelMapper.map(itemWeight, ItemWeight.class);
+    }
+
+    public ItemVolume convertAttributeItemVolumeDtoToEntity() {
+
+        return modelMapper.map(itemVolume, ItemVolume.class);
+    }
+
+    public BusinessRetail convertAttributeBusinessRetailDtoToEntity() {
+
+        return modelMapper.map(businessRetail, BusinessRetail.class);
+    }
 }
