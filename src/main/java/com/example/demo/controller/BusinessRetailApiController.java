@@ -43,11 +43,11 @@ public class BusinessRetailApiController {
     }
 
     @PostMapping(value="/{customerId}",
-            produces = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.MULTIPART_FORM_DATA_VALUE,
             consumes = {})
     public ResponseEntity<?> createBusiness(
-            @PathVariable(value="customerId") String customerId,
-            @RequestPart( required = false)  BusinessRetailRequestModel businessRetailModel,
+            @PathVariable(value = "customerId") String customerId,
+            @RequestPart( value = "data", required = false)  BusinessRetailRequestModel businessRetailModel,
             @RequestParam(value = "file", required = false) MultipartFile multipartFile) throws ResourceAlreadyExistsException {
 
         BusinessRetailDto businessRetailDto = modelMapper.map(businessRetailModel, BusinessRetailDto.class);

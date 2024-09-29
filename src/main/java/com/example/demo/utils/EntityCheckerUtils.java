@@ -2,6 +2,8 @@ package com.example.demo.utils;
 
 import java.util.Optional;
 
+import com.example.demo.model.entity.BusinessRetail;
+import com.example.demo.repository.BusinessRetailRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -18,20 +20,24 @@ import com.example.demo.repository.DishRepository;
 public class EntityCheckerUtils {
 	
 	private CustomerRepository customerRepository;
-	
 	private CeremonyRepository ceremonyRepository;
-	
 	private DishRepository dishRepository;
-	
 	private ModelMapper modelMapper;
+	private BusinessRetailRepository businessRetailRepository;
+
 	
-	public EntityCheckerUtils(CustomerRepository customerRepository,
-			CeremonyRepository ceremonyRepository, DishRepository dishRepository,
-			ModelMapper modelMapper) {
+	public EntityCheckerUtils(
+			CustomerRepository customerRepository,
+			CeremonyRepository ceremonyRepository,
+			DishRepository dishRepository,
+			ModelMapper modelMapper,
+			BusinessRetailRepository businessRetailRepository) {
+
 		this.customerRepository = customerRepository;
 		this.ceremonyRepository = ceremonyRepository;
 		this.dishRepository = dishRepository;
 		this.modelMapper = modelMapper;
+		this.businessRetailRepository = businessRetailRepository;
 	}
 	
 	public Customer checkIfCustomerExists(String customerId) {
@@ -64,6 +70,17 @@ public class EntityCheckerUtils {
 		}
 		
 		return dish;
+	}
+
+	public BusinessRetail checkIfBusinessRetailExists(String businessId) {
+
+		BusinessRetail businessRetail = businessRetailRepository.findByBusinessId(businessId);
+
+		if (businessRetail == null) {
+			throw new NoResourceFoundException(ExceptionMessages.NO_BUSINESS_RETAIIL);
+		}
+
+		return businessRetail;
 	}
 
 }

@@ -5,6 +5,7 @@ import com.example.demo.repository.MediaPostRepository;
 import com.example.demo.service.FileService;
 import com.example.demo.utils.AwsServiceUtil;
 import com.example.demo.utils.FileEncoderUtil;
+import com.example.demo.utils.PublicIdGeneratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -38,12 +39,12 @@ public class FileServiceImpl implements FileService {
             String fileToString = FileEncoderUtil.encodedFileToString(fileContent);
 
             String bucketName = businessId.toLowerCase();
-            String fileName = "images/" + new Date().toString();
+            String fileName = "images/" + PublicIdGeneratorUtils.generatePublicId(20);
 
-            AwsServiceUtil.uploadFile(
-                    accessKey, secretKey,
-                    bucketName, fileName,
-                    fileToString);
+//            AwsServiceUtil.uploadFile(
+//                    accessKey, secretKey,
+//                    bucketName, fileName,
+//                    fileToString);
 
             mediaPost.setDatePosted(new Date());
             mediaPost.setMediaURL(fileName);

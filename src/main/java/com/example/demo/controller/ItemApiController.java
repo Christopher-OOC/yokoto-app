@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.dto.ItemDto;
+import com.example.demo.model.generictype.ItemType;
 import com.example.demo.model.request.ItemRequestModel;
 import com.example.demo.service.ItemService;
 import org.modelmapper.ModelMapper;
@@ -23,15 +24,14 @@ public class ItemApiController {
     @PostMapping(value="/{businessId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> uploadItem(
             @PathVariable("businessId") String businessId,
-            @RequestBody ItemRequestModel itemRequestModel,
-            @RequestPart("file") MultipartFile multipartFile
+            @RequestPart(value = "data") ItemRequestModel itemRequestModel,
+            @RequestParam(value = "file") MultipartFile[] multipartFiles
             ) {
 
         ItemDto itemDto = modelMapper.map(itemRequestModel, ItemDto.class);
 
-        return null;
+        ItemType<?> itemType = itemService.uploadItem(businessId, itemDto, multipartFiles);
+
+        return ResponseEntity.created(null).body(itemType.getItem());
     }
-
-
-
 }

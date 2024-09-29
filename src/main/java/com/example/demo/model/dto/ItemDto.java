@@ -1,9 +1,6 @@
 package com.example.demo.model.dto;
 
-import com.example.demo.model.entity.BusinessRetail;
-import com.example.demo.model.entity.Category;
-import com.example.demo.model.entity.ItemVolume;
-import com.example.demo.model.entity.ItemWeight;
+import com.example.demo.model.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +20,7 @@ public class ItemDto {
     private Category category;
     private ItemWeightDto itemWeight;
     private ItemVolumeDto itemVolume;
+    private MeatType meatType;
     private BusinessRetailDto businessRetail;
     private String businessId;
     private ModelMapper modelMapper;

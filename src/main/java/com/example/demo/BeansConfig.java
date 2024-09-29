@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,8 @@ public class BeansConfig {
 	protected ObjectMapper objectMapper() {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-
+		//objectMapper.configure(DeserializationFeature.)
+		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
 		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 		objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
 		
