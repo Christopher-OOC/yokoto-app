@@ -30,14 +30,15 @@ public class ItemServiceImpl implements ItemService {
     public ItemType<?> uploadItem(String businessId, ItemDto itemDto, MultipartFile multipartFile) {
 
         ItemType<Item> itemType = getItemType(itemDto);
-
         Item item = itemType.getItem();
 
         BusinessRetail businessOwner = businessRetailRepository.findByBusinessId(businessId);
-
         item.setBusinessRetail(businessOwner);
 
+        Item saveItem = itemRepository.save(item);
+        itemType.setItem(saveItem);
 
+        return itemType;
     }
 
     private ItemType<Item> getItemType(ItemDto itemDto) {
