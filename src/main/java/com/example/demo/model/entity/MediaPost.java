@@ -22,7 +22,7 @@ public class MediaPost {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name="media_url")
 	private String mediaURL;

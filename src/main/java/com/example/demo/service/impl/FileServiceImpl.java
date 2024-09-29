@@ -1,9 +1,11 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.entity.MediaPost;
+import com.example.demo.repository.MediaPostRepository;
 import com.example.demo.service.FileService;
 import com.example.demo.utils.AwsServiceUtil;
 import com.example.demo.utils.FileEncoderUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +15,9 @@ import java.util.Date;
 
 @Service
 public class FileServiceImpl implements FileService {
+
+    @Autowired
+    private MediaPostRepository mediaPostRepository;
 
     @Value("${my-aws.s3.access-key}")
     private String accessKey;
@@ -47,6 +52,6 @@ public class FileServiceImpl implements FileService {
             ex.printStackTrace();
         }
 
-        return mediaPost;
+        return mediaPostRepository.save(mediaPost);
     }
 }
