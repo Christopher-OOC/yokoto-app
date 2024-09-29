@@ -54,6 +54,7 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
             BusinessRetail businessRetail = modelMapper.map(businessRetailDto, BusinessRetail.class);
             businessRetail.setBusinessId(businessId);
             customer.setBusiness(businessRetail);
+            businessRetail.setCustomer(customer);
 
             MediaPost mediaPost = null;
 
@@ -61,7 +62,7 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
 
                 mediaPost = fileService.uploadBusinessLogo(businessId, multipartFile);
 
-                businessRetail.setBusinessLogo(mediaPost.getMediaUrl());
+                businessRetail.setBusinessLogoUrl(mediaPost.getMediaUrl());
 
                 customerRepository.save(customer);
             }

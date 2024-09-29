@@ -25,12 +25,13 @@ public class BusinessRetail {
     @Column(nullable = false)
     private String businessName;
 
-    private String businessLogo;
+    private String businessLogoUrl;
 
     @Column(length = 500, nullable = false)
     private String businessDescription;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private BusinessType businessType;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

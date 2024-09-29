@@ -22,7 +22,7 @@ public class BusinessRetailDto {
 
     private String businessName;
 
-    private String businessLogo;
+    private String businessLogoUrl;
 
     private String businessDescription;
 
