@@ -6,6 +6,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.example.demo.exception.NoResourceFoundException;
 
 public class AwsServiceUtil {
 
@@ -51,6 +52,29 @@ public class AwsServiceUtil {
             ex.printStackTrace();
         }
 
+    }
+
+    public static byte[] downloadFile(
+            String accessKey,
+            String secretKey,
+            String bucketName,
+            String fileName) {
+
+        AmazonS3 s3 = setUpAmazonS3BucketConnection(accessKey, secretKey);
+
+        String fileStringContent;
+
+        try {
+
+            fileStringContent = s3.getObjectAsString(bucketName, fileName);
+        }
+        catch (Exception ex) {
+            throw new NoResourceFoundException("We couldn't get such file!!!");
+        }
+
+        byte[] bytesFileContent = FileEncoderUtil.decodedStringToFileByte(fileStringContent);
+
+        return bytesFileContent;
     }
 
 }

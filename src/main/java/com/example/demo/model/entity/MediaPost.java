@@ -25,7 +25,7 @@ public class MediaPost {
 	private Long id;
 	
 	@Column(name="media_url")
-	private String mediaURL;
+	private String mediaUrl;
 
 	@Column(name="file_type")
 	private String fileType;

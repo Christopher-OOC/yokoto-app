@@ -9,10 +9,17 @@ import com.example.demo.service.FileService;
 import com.example.demo.service.ItemService;
 import com.example.demo.utils.EntityCheckerUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
+@Transactional
 public class ItemServiceImpl implements ItemService {
 
     private BusinessRetailRepository businessRetailRepository;
@@ -37,22 +44,42 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemType<?> uploadItem(String businessId, ItemDto itemDto, MultipartFile[] multipartFiles) {
 
-        BusinessRetail businessOwner = entityCheckerUtils.checkIfBusinessRetailExists(businessId);
+        //BusinessRetail businessOwner = entityCheckerUtils.checkIfBusinessRetailExists(businessId);
 
         ItemType<Item> itemType = getItemType(itemDto);
         Item item = itemType.getItem();
 
-        item.setBusinessRetail(businessOwner);
+        item.setBusinessRetail(null);
+
+        Item saveItem = itemRepository.save(item);
 
         for (int i = 0; i < multipartFiles.length; i++) {
-            MediaPost image = fileService.uploadFile(businessId, multipartFiles[i]);
+            MediaPost image = fileService.uploadItemImage(businessId, item.getId(), multipartFiles[i]);
             item.getImages().add(image);
         }
 
-        Item saveItem = itemRepository.save(item);
-        itemType.setItem(saveItem);
+        Item savedItemWithImages = itemRepository.save(item);
+
+        itemType.setItem(savedItemWithImages);
 
         return itemType;
+    }
+
+    @Override
+    public List<?> downloadItemImage(String businessId, long itemId, String mediaUrl) {
+
+        entityCheckerUtils.checkIfBusinessRetailExists(businessId);
+        entityCheckerUtils.checkIfItemExists(itemId);
+        MediaPost mediaPost = entityCheckerUtils.checkIfMediaUrlPathExists(mediaUrl);
+
+        String contentType = mediaPost.getFileType();
+
+        byte[] byteContent = fileService.downloadItemImage(businessId, mediaUrl);
+
+        List<?> list = List.of(contentType, byteContent);
+
+
+        return list;
     }
 
 

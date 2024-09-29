@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/items")
 public class ItemApiController {
@@ -33,5 +35,20 @@ public class ItemApiController {
         ItemType<?> itemType = itemService.uploadItem(businessId, itemDto, multipartFiles);
 
         return ResponseEntity.created(null).body(itemType.getItem());
+    }
+
+    @GetMapping("/{businessId}/{itemId}/{mediaUrl}")
+    public ResponseEntity<?> downloadMediaByUrl(
+            String businessId,
+            long itemId,
+            String mediaUrl
+    ) {
+
+        List<?> listContentTypeAndData = itemService.downloadItemImage(businessId, itemId, mediaUrl);
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.valueOf((String) listContentTypeAndData.get(0)))
+                .body((byte[]) listContentTypeAndData.get(1));
     }
 }

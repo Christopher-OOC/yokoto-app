@@ -43,8 +43,8 @@ public class BusinessRetailApiController {
     }
 
     @PostMapping(value="/{customerId}",
-            produces = MediaType.MULTIPART_FORM_DATA_VALUE,
-            consumes = {})
+            produces = {MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> createBusiness(
             @PathVariable(value = "customerId") String customerId,
             @RequestPart( value = "data", required = false)  BusinessRetailRequestModel businessRetailModel,

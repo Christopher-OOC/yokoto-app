@@ -1,20 +1,14 @@
 package com.example.demo.utils;
 
-import java.util.Optional;
-
-import com.example.demo.model.entity.BusinessRetail;
-import com.example.demo.repository.BusinessRetailRepository;
+import com.example.demo.model.entity.*;
+import com.example.demo.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.exception.NoResourceFoundException;
 import com.example.demo.model.constant.ExceptionMessages;
-import com.example.demo.model.entity.Ceremony;
-import com.example.demo.model.entity.Customer;
-import com.example.demo.model.entity.Dish;
-import com.example.demo.repository.CeremonyRepository;
-import com.example.demo.repository.CustomerRepository;
-import com.example.demo.repository.DishRepository;
+
+import java.util.Optional;
 
 @Component
 public class EntityCheckerUtils {
@@ -24,6 +18,8 @@ public class EntityCheckerUtils {
 	private DishRepository dishRepository;
 	private ModelMapper modelMapper;
 	private BusinessRetailRepository businessRetailRepository;
+	private ItemRepository itemRepository;
+	private MediaPostRepository mediaPostRepository;
 
 	
 	public EntityCheckerUtils(
@@ -31,13 +27,18 @@ public class EntityCheckerUtils {
 			CeremonyRepository ceremonyRepository,
 			DishRepository dishRepository,
 			ModelMapper modelMapper,
-			BusinessRetailRepository businessRetailRepository) {
+			BusinessRetailRepository businessRetailRepository,
+			ItemRepository itemRepository,
+			MediaPostRepository mediaPostRepository) {
 
 		this.customerRepository = customerRepository;
 		this.ceremonyRepository = ceremonyRepository;
 		this.dishRepository = dishRepository;
 		this.modelMapper = modelMapper;
 		this.businessRetailRepository = businessRetailRepository;
+		this.itemRepository = itemRepository;
+		this.mediaPostRepository = mediaPostRepository;
+
 	}
 	
 	public Customer checkIfCustomerExists(String customerId) {
@@ -81,6 +82,28 @@ public class EntityCheckerUtils {
 		}
 
 		return businessRetail;
+	}
+
+	public Item checkIfItemExists(Long itemId) {
+
+		Optional<Item> optional = itemRepository.findById(itemId);
+
+		if (optional.isEmpty()) {
+			throw new NoResourceFoundException(ExceptionMessages.NO_ITEM);
+		}
+
+		return optional.get();
+	}
+
+	public MediaPost checkIfMediaUrlPathExists(String mediaUrl) {
+
+		MediaPost mediaPost = mediaPostRepository.findByMediaUrl(mediaUrl);
+
+		if (mediaPost == null) {
+			throw new NoResourceFoundException(ExceptionMessages.NO_MEDIA);
+		}
+
+		return mediaPost;
 	}
 
 }

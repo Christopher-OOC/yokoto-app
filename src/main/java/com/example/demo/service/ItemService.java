@@ -4,11 +4,18 @@ import com.example.demo.model.dto.ItemDto;
 import com.example.demo.model.generictype.ItemType;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface ItemService {
 
     ItemType<?> uploadItem(
             String businessId,
             ItemDto itemDto,
             MultipartFile[] multipartFiles);
+
+    List<?> downloadItemImage(
+            String businessId,
+            long itemId,
+            String mediaUrl);
 
 }

@@ -1,11 +1,18 @@
 package com.example.demo.service;
 
-import com.example.demo.model.dto.BusinessRetailDto;
 import com.example.demo.model.entity.MediaPost;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
 
-    MediaPost uploadFile(String businessId, MultipartFile multipartFile);
+    MediaPost uploadBusinessLogo(String businessId,
+                                 MultipartFile multipartFile);
+
+    MediaPost uploadItemImage(String businessId,
+                              long itemId,
+                              MultipartFile multipartFile);
+
+    byte[] downloadItemImage(String businessId,
+                             String mediaUrl);
 
 }

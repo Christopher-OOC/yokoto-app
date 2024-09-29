@@ -59,9 +59,9 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
 
             try {
 
-                mediaPost = fileService.uploadFile(businessId, multipartFile);
+                mediaPost = fileService.uploadBusinessLogo(businessId, multipartFile);
 
-                businessRetail.setBusinessLogo(mediaPost.getMediaURL());
+                businessRetail.setBusinessLogo(mediaPost.getMediaUrl());
 
                 customerRepository.save(customer);
             }
