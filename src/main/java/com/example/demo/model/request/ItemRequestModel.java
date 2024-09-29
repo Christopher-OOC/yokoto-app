@@ -15,6 +15,5 @@ public class ItemRequestModel {
     private Category category;
     private ItemWeightDto itemWeight;
     private ItemVolumeDto itemVolume;
-    protected String businessId;
 
 }
