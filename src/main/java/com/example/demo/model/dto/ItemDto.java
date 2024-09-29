@@ -35,4 +35,6 @@ public class ItemDto {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    public Ite
 }

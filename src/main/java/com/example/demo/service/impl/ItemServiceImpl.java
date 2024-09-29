@@ -1,6 +1,8 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.dto.ItemDto;
+import com.example.demo.model.entity.Category;
+import com.example.demo.model.entity.CookingOil;
 import com.example.demo.model.generictype.ItemType;
 import com.example.demo.service.ItemService;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,18 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemType<?> uploadItem(String businessId, ItemDto itemDto, MultipartFile multipartFile) {
-        return null;
+
+        ItemType<?> itemType = getItemType(itemDto);
+    }
+
+    private ItemType<?> getItemType(ItemDto itemDto) {
+
+        if (itemDto.getCategory() == Category.COOKING_OIL) {
+            CookingOil item = new CookingOil();
+            item.setItemVolume(itemDto.getItemVolume());
+
+        }
+
     }
 
 

@@ -23,4 +23,15 @@ public class Meat extends Item implements Weightable {
     @Enumerated(EnumType.STRING)
     private ItemWeight itemWeight;
 
+    @Override
+    public String toString() {
+        return "Meat{" +
+                "meatType=" + meatType +
+                ", itemWeight=" + itemWeight +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", category=" + category +
+                '}';
+    }
 }

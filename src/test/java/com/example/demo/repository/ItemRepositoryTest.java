@@ -7,6 +7,11 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = false)
@@ -35,6 +40,21 @@ public class ItemRepositoryTest {
 
         meat.setBusinessRetail(businessRetail);
 
-        itemRepository.save(meat);
+        Meat savedMeat = itemRepository.save(meat);
+
+        assertNotNull(savedMeat);
+        assertEquals(savedMeat.getMeatType(), MeatType.BEEF);
+        assertEquals(savedMeat.getItemWeight().getWeightUnit(), Unit.KG);
+        assertEquals(savedMeat.getItemWeight().getWeightValue(), 5);
+    }
+
+    @Test
+    void testSelectItem() {
+
+        Optional<Item> optional = itemRepository.findById(1L);
+
+        System.out.println(optional.orElseThrow());
+
+        assertNotNull(optional.orElseThrow());
     }
 }

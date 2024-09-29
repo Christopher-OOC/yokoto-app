@@ -24,7 +24,7 @@ public class ItemApiController {
     public ResponseEntity<?> uploadItem(
             @PathVariable("businessId") String businessId,
             @RequestBody ItemRequestModel itemRequestModel,
-            @RequestPart("file")MultipartFile multipartFile
+            @RequestPart("file") MultipartFile multipartFile
             ) {
 
         ItemDto itemDto = modelMapper.map(itemRequestModel, ItemDto.class);

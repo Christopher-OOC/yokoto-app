@@ -1,5 +1,10 @@
 package com.example.demo.model.generictype;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class ItemType<I> {
 
     I item;
