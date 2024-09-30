@@ -1,8 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.dto.ItemDto;
+import com.example.demo.model.entity.Item;
 import com.example.demo.model.generictype.ItemType;
 import com.example.demo.model.request.ItemRequestModel;
+import com.example.demo.model.response.RequestStatus;
+import com.example.demo.model.response.ResponseMessage;
+import com.example.demo.model.response.ResponseStatus;
 import com.example.demo.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,47 @@ public class ItemApiController {
         ItemType<?> itemType = itemService.uploadItem(businessId, itemDto, multipartFiles);
 
         return ResponseEntity.created(null).body(itemType.getItem());
+    }
+
+    @PutMapping(value = "/{businessId}")
+    public ResponseEntity<?>  updateItem(
+            @PathVariable("businessId") String businessId,
+            @PathVariable("itemId") long itemId,
+            @RequestBody ItemRequestModel itemRequestModel
+    ) {
+
+        ItemDto itemDto = modelMapper.map(itemRequestModel, ItemDto.class);
+
+        Item updateItem = itemService.updateItem(businessId, itemId, itemDto);
+
+        return ResponseEntity.ok(updateItem);
+    }
+
+    @PutMapping(value = "/{businessId}/{itemId}/imageId")
+    public ResponseEntity<?> updateAnItemImageByImageId(
+            @PathVariable("businessId") String businessId,
+            @PathVariable("itemId") long itemId,
+            @PathVariable("imageId") long imageId,
+            @RequestPart("file") MultipartFile multipartFile) {
+
+        itemService.updateAnItemImageByImageId(businessId, itemId, imageId, multipartFile);
+
+        ResponseMessage message = new ResponseMessage();
+        message.setRequestStatus(RequestStatus.UPDATED);
+        message.setResponseStatus(ResponseStatus.SUCCESS);
+
+        return ResponseEntity.ok(message);
+    }
+
+    @GetMapping("/{businessId}/{itemId}")
+    public ResponseEntity<?> getItemById(
+            @PathVariable("businessId") String businessId,
+            @PathVariable("itemId") long itemId
+    ) {
+
+        Item item = itemService.findById(businessId, itemId);
+
+        return ResponseEntity.ok(item);
     }
 
     @GetMapping("/{businessId}/{itemId}/{mediaUrl}")

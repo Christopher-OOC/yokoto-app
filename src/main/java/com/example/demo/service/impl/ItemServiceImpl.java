@@ -3,8 +3,10 @@ package com.example.demo.service.impl;
 import com.example.demo.model.dto.ItemDto;
 import com.example.demo.model.entity.*;
 import com.example.demo.model.generictype.ItemType;
+import com.example.demo.model.request.ItemRequestModel;
 import com.example.demo.repository.BusinessRetailRepository;
 import com.example.demo.repository.ItemRepository;
+import com.example.demo.repository.MediaPostRepository;
 import com.example.demo.service.FileService;
 import com.example.demo.service.ItemService;
 import com.example.demo.utils.EntityCheckerUtils;
@@ -15,8 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,24 +31,27 @@ public class ItemServiceImpl implements ItemService {
     private ModelMapper modelMapper;
     private FileService fileService;
     private EntityCheckerUtils entityCheckerUtils;
+    private MediaPostRepository mediaPostRepository;
 
     public ItemServiceImpl(BusinessRetailRepository businessRetailRepository,
                            ItemRepository itemRepository,
                            ModelMapper modelMapper,
                            FileService fileService,
-                           EntityCheckerUtils entityCheckerUtils) {
+                           EntityCheckerUtils entityCheckerUtils,
+                           MediaPostRepository mediaPostRepository) {
 
         this.businessRetailRepository = businessRetailRepository;
         this.itemRepository = itemRepository;
         this.modelMapper = modelMapper;
         this.fileService = fileService;
         this.entityCheckerUtils = entityCheckerUtils;
+        this.mediaPostRepository = mediaPostRepository;
     }
 
     @Override
     public ItemType<?> uploadItem(String businessId, ItemDto itemDto, MultipartFile[] multipartFiles) {
 
-        //BusinessRetail businessOwner = entityCheckerUtils.checkIfBusinessRetailExists(businessId);
+        BusinessRetail businessOwner = entityCheckerUtils.checkIfBusinessRetailExists(businessId);
 
         ItemType<Item> itemType = getItemType(itemDto);
         Item item = itemType.getItem();
@@ -78,9 +85,62 @@ public class ItemServiceImpl implements ItemService {
 
         List<?> list = List.of(contentType, byteContent);
 
-
         return list;
     }
+
+    @Override
+    public Item updateItem(
+            String businessId,
+            long itemId,
+            ItemDto itemDto) {
+
+        entityCheckerUtils.checkIfBusinessRetailExists(businessId);
+
+        Item item = entityCheckerUtils.checkIfItemExists(itemId);
+
+
+        ItemType<Item> itemType = getItemType(itemDto);
+        Item newUpdateItem = itemType.getItem();
+        newUpdateItem.setId(item.getId());
+
+        return itemRepository.save(newUpdateItem);
+    }
+
+    public Item findById(String businessId, long itemId) {
+
+        entityCheckerUtils.checkIfBusinessRetailExists(businessId);
+
+        Item item = entityCheckerUtils.checkIfItemExists(itemId);
+
+        return item;
+    }
+
+    public void updateAnItemImageByImageId(
+            String businessId,
+            long itemId,
+            long imageId,
+            MultipartFile multipartFile) {
+
+        entityCheckerUtils.checkIfBusinessRetailExists(businessId);
+        Item item = entityCheckerUtils.checkIfItemExists(itemId);
+        MediaPost oldImage = entityCheckerUtils.checkIfImageExists(imageId);
+
+        MediaPost newImage = fileService.uploadItemImage(
+                businessId,
+                itemId,
+                multipartFile
+        );
+
+        mediaPostRepository.deleteById(imageId);
+
+        List<MediaPost> listImages = item.getImages();
+        listImages.remove(oldImage);
+        listImages.add(newImage);
+
+        item.setImages(listImages);
+
+        itemRepository.save(item);
+   }
 
 
     private static ItemType<Item> getItemType(ItemDto itemDto) {

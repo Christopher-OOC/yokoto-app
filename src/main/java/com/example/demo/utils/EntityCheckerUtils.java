@@ -106,4 +106,15 @@ public class EntityCheckerUtils {
 		return mediaPost;
 	}
 
+	public MediaPost checkIfImageExists(Long imageId) {
+
+		Optional<MediaPost> optional = mediaPostRepository.findById(imageId);
+
+		if (optional.isEmpty()) {
+			throw new NoResourceFoundException(ExceptionMessages.NO_MEDIA);
+		}
+
+		return optional.get();
+	}
+
 }
