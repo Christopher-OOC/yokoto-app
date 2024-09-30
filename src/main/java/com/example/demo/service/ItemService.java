@@ -21,6 +21,8 @@ public interface ItemService {
 
     void updateAnItemImageByImageId(String businessId, long itemId, long imageId, MultipartFile multipartFile);
 
+    void updateAllItemImages(String businessId, long itemId, MultipartFile[] multipartFiles);
+
     List<?> downloadItemImage(
             String businessId,
             long itemId,

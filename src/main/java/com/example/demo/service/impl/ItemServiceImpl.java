@@ -3,7 +3,6 @@ package com.example.demo.service.impl;
 import com.example.demo.model.dto.ItemDto;
 import com.example.demo.model.entity.*;
 import com.example.demo.model.generictype.ItemType;
-import com.example.demo.model.request.ItemRequestModel;
 import com.example.demo.repository.BusinessRetailRepository;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.MediaPostRepository;
@@ -11,16 +10,11 @@ import com.example.demo.service.FileService;
 import com.example.demo.service.ItemService;
 import com.example.demo.utils.EntityCheckerUtils;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -141,6 +135,23 @@ public class ItemServiceImpl implements ItemService {
 
         itemRepository.save(item);
    }
+
+    public void updateAllItemImages(String businessId, long itemId, MultipartFile[] multipartFiles) {
+
+        entityCheckerUtils.checkIfBusinessRetailExists(businessId);
+        Item item = entityCheckerUtils.checkIfItemExists(itemId);
+
+        List<MediaPost> listNewImages = new ArrayList<>();
+
+        for (int i = 0; i < multipartFiles.length; i++) {
+            MediaPost mediaPost = fileService.uploadItemImage(businessId, itemId, multipartFiles[i]);
+            listNewImages.add(mediaPost);
+        }
+
+        item.setImages(listNewImages);
+
+        itemRepository.save(item);
+    }
 
 
     private static ItemType<Item> getItemType(ItemDto itemDto) {

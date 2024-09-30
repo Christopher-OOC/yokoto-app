@@ -55,7 +55,7 @@ public class ItemApiController {
         return ResponseEntity.ok(updateItem);
     }
 
-    @PutMapping(value = "/{businessId}/{itemId}/imageId")
+    @PutMapping(value = "/{businessId}/{itemId}/imageId", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updateAnItemImageByImageId(
             @PathVariable("businessId") String businessId,
             @PathVariable("itemId") long itemId,
@@ -63,6 +63,21 @@ public class ItemApiController {
             @RequestPart("file") MultipartFile multipartFile) {
 
         itemService.updateAnItemImageByImageId(businessId, itemId, imageId, multipartFile);
+
+        ResponseMessage message = new ResponseMessage();
+        message.setRequestStatus(RequestStatus.UPDATED);
+        message.setResponseStatus(ResponseStatus.SUCCESS);
+
+        return ResponseEntity.ok(message);
+    }
+
+    @PutMapping(value = "/{businessId}/{itemId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> updateAllItemImages(
+            @PathVariable("businessId") String businessId,
+            @PathVariable("itemId") long itemId,
+            @RequestPart("file") MultipartFile[] multipartFiles) {
+
+        itemService.updateAllItemImages(businessId, itemId, multipartFiles);
 
         ResponseMessage message = new ResponseMessage();
         message.setRequestStatus(RequestStatus.UPDATED);
