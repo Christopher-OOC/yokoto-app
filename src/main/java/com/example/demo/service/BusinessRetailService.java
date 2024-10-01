@@ -10,4 +10,5 @@ public interface BusinessRetailService {
                               BusinessRetailDto businessRetailDto,
                               MultipartFile multipartFile);
 
+    void uploadImage(String businessId, MultipartFile multipartFile);
 }

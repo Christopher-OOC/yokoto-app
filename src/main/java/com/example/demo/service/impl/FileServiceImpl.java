@@ -58,6 +58,16 @@ public class FileServiceImpl implements FileService {
         return downloadFile(businessId, mediaUrl);
     }
 
+    public MediaPost uploadBusinessImage(String businessId, MultipartFile multipartFile) {
+
+        String fileName = "images/" + "business/" +
+                 PublicIdGeneratorUtils.generatePublicId(20);
+
+        MediaPost mediaPost = uploadFile(businessId, fileName, multipartFile);
+
+        return mediaPost;
+    }
+
     private MediaPost uploadFile(String businessId,
                                  String fileName,
                                  MultipartFile multipartFile) {

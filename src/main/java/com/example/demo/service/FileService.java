@@ -15,4 +15,6 @@ public interface FileService {
     byte[] downloadItemImage(String businessId,
                              String mediaUrl);
 
+    MediaPost uploadBusinessImage(String businessId, MultipartFile multipartFile);
+
 }

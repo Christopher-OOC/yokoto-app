@@ -40,7 +40,7 @@ public class BusinessRetail {
     @OneToOne(fetch = FetchType.EAGER)
     private Customer customer;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<MediaPost> images = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)

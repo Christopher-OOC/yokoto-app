@@ -74,6 +74,16 @@ public class BusinessRetailServiceImpl implements BusinessRetailService {
             throw new ResourceAlreadyExistsException("You have already created a business with name: "
                     + businessRetailDto.getBusinessName());
         }
-
     }
+
+    public void uploadImage(String businessId, MultipartFile multipartFile) {
+
+        BusinessRetail businessRetail = entityCheckerUtils.checkIfBusinessRetailExists(businessId);
+
+        MediaPost mediaPost = fileService.uploadBusinessImage(businessId, multipartFile);
+        businessRetail.getImages().add(mediaPost);
+
+        businessRetailRepository.save(businessRetail);
+    }
+
 }
