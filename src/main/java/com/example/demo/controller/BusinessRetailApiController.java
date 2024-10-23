@@ -72,5 +72,17 @@ public class BusinessRetailApiController {
         return ResponseEntity.created(null).body(message);
     }
 
+    @PostMapping(path="/{businessId}")
+    public ResponseEntity<?> uploadProduct(
+            @PathVariable("businessId") String businessId,
+            @RequestBody
+    ) {
+
+
+
+        return null;
+    }
+
+
 
 }
