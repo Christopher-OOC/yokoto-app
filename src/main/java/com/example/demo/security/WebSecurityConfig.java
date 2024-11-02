@@ -36,6 +36,7 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(request -> request
 				.requestMatchers(HttpMethod.POST, SecurityConstants.SIGNUP_URL).permitAll()
 				.requestMatchers(HttpMethod.POST, SecurityConstants.SIGNIN_URL).permitAll()
+				.requestMatchers("/h2-console/**").permitAll()
 				.anyRequest().authenticated()
 			);
 
@@ -49,6 +50,8 @@ public class WebSecurityConfig {
 			);
 		 
 		 http.csrf(csrf -> csrf.disable());
+
+		 http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
 
 		 return http.getOrBuild();
 	}

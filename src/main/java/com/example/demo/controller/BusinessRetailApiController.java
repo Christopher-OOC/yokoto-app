@@ -74,8 +74,7 @@ public class BusinessRetailApiController {
 
     @PostMapping(path="/{businessId}")
     public ResponseEntity<?> uploadProduct(
-            @PathVariable("businessId") String businessId,
-            @RequestBody
+            @PathVariable("businessId") String businessId
     ) {
 
 
